@@ -8,6 +8,11 @@ public class CritterWorld {
 		
 	}
 	
+	
+	public static ArrayList<Critter> getLiveCritters(){
+		return liveCritters;
+	}
+	
 	/**
 	 * Adds a critter to the world 
 	 * @param c

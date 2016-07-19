@@ -12,7 +12,10 @@
  */
 package project4;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+
 
 /* see the PDF for descriptions of the methods and fields in this class
  * you may add fields, methods or inner classes to Critter ONLY if you make your additions private
@@ -128,6 +131,16 @@ public abstract class Critter {
 	private static List<Critter> babies = new java.util.ArrayList<Critter>();
 		
 	public static void worldTimeStep() {
+		ArrayList<Critter> step = CritterWorld.getLiveCritters();
+		Iterator<Critter> itr = step.iterator();
+		Critter next;
+		
+		while(itr.hasNext()){
+			next = itr.next();
+			next.doTimeStep();
+		}
+		
+		
 	}
 	
 	public static void displayWorld() {}
