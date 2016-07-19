@@ -1,5 +1,4 @@
-package project4;
-/* CRITTERS <MyClass.java>
+/* CRITTERS Main.java
  * EE422C Project 4 submission by
  * Replace <...> with your actual data.
  * <Student1 Name>
@@ -9,5 +8,14 @@ package project4;
  * <Student2 EID>
  * <Student2 5-digit Unique No.>
  * Slip days used: <0>
- * Fall 2015
+ * Summer 2016
  */
+package project4;
+import java.util.Scanner;
+
+public class Main {
+
+	public static void main(String[] args) {
+		System.out.println("GLHF");
+	}
+}
