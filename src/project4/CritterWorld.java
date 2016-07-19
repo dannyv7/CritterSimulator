@@ -8,7 +8,11 @@ public class CritterWorld {
 		
 	}
 	
-	
+	/**
+	 * Accessor method for the ArrayList of alive Critters *
+	 * @return
+	 * 	The ArrayList<Critter> which contains all live Critter objects 
+	 */
 	public static ArrayList<Critter> getLiveCritters(){
 		return liveCritters;
 	}

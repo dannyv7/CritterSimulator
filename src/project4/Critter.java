@@ -22,6 +22,7 @@ import java.util.List;
  * no new public, protected or default-package code or data can be added to Critter
  */
 public abstract class Critter {
+	private int[] directionalPreferences = null;
 	
 	private static java.util.Random rand = new java.util.Random();
 	public static int getRandomInt(int max) {
@@ -127,6 +128,85 @@ public abstract class Critter {
 		}
 	}
 	
+	/* Helper methods to  move our bugs around */
+	
+	/** 
+	 * Wraps the Critter back on the world when a x directional edge is reached
+	 * @param x
+	 * 	New x coord
+	 * @return
+	 * 	Wrapped x coord or just x if edge is not reacched
+	 */
+	private static int wrapX(int x) {
+        if (x < 0) { return Params.world_width - 1; }
+        else if (x == Params.world_width) { return 0; }
+        else { return x; }
+	}
+	
+	/** 
+	 * Wraps the Critter back on the world when a y directional edge is reached
+	 * @param y
+	 * 	New y coord
+	 * @return
+	 * 	Wrapped y coord or just y if edge is not reacched
+	 */
+	private static int wrapY(int y) {
+        if (y < 0) { return Params.world_width - 1; }
+        else if (y == Params.world_width) { return 0; }
+        else { return y; }
+	}
+	
+	/**
+	 * Sets the new (x, y) for the Critter
+	 * @param dist
+	 * 	How far to move (e.g. 1 for walk, 2 for  run 
+	 * @param dir
+	 * 	The direction to move in
+	 */
+	private void newDir(int dist, int dir) {
+        switch (dir) {
+        	/* Move directly North */	
+        	case 0:
+        		this.y_coord = wrapY(this.y_coord +dist);
+        		break;
+        	/* Moves in the Northeast direction */
+        	case 1:
+        		this.x_coord = wrapX(this.x_coord + dist);
+        		this.y_coord = wrapY(this.y_coord +dist);
+        		break;
+        	/* Moves directlly to the East */
+        	case 2:
+        		this.x_coord = wrapX(this.x_coord + dist);
+        		break;
+        	/* Moves in the Southeast direction */
+        	case 3:
+        		this.x_coord = wrapX(this.x_coord + dist);
+        		this.y_coord = wrapY(this.y_coord - dist);
+        		break;
+        	/* Moves directly to the South */
+        	case 4:
+        		this.y_coord = wrapY(this.y_coord - dist);
+        		break;
+        	/* Moves in the Southwest direction */
+        	case 5:
+        		this.x_coord = wrapX(this.x_coord - dist);
+        		this.y_coord = wrapY(this.y_coord - dist);
+        		break;
+        	/* Moves directly to the West */
+        	case 6:
+        		this.x_coord = wrapX(this.x_coord -dist);
+        		break;
+        	/* Moves in the Northwest direction */
+        	case 7:
+        		this.x_coord = wrapX(this.x_coord - dist);
+        		this.y_coord = wrapY(this.y_coord + dist);
+        		break;
+        }
+	}
+
+	
+	
+
 	private	static List<Critter> population = new java.util.ArrayList<Critter>();
 	private static List<Critter> babies = new java.util.ArrayList<Critter>();
 		
@@ -135,6 +215,7 @@ public abstract class Critter {
 		Iterator<Critter> itr = step.iterator();
 		Critter next;
 		
+		/* All critters executed their  timeStep method */
 		while(itr.hasNext()){
 			next = itr.next();
 			next.doTimeStep();
