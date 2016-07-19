@@ -36,8 +36,8 @@ public abstract class Critter {
 	private int energy = 0;
 	protected int getEnergy() { return energy; }
 	
-	private int x_coord;
-	private int y_coord;
+	private int x_coord = getRandomInt(Params.world_width);
+	private int y_coord = getRandomInt(Params.world_height);
 	
 	protected final void walk(int direction) {
 	}
@@ -57,6 +57,21 @@ public abstract class Critter {
 	 * an InvalidCritterException must be thrown
 	 */
 	public static void makeCritter(String critter_class_name) throws InvalidCritterException {
+		if(critter_class_name.equals("Algae")){
+			CritterWorld.addCritter(new Algae());
+		}else if(critter_class_name.equals("Craig")){
+			CritterWorld.addCritter(new Craig());
+		}else if(critter_class_name.equals("Mia")){
+			CritterWorld.addCritter(new Mia());
+		}else if(critter_class_name.equals("Lexi")){
+			CritterWorld.addCritter(new Lexi());
+		}else if(critter_class_name.equals("Asa")){
+			CritterWorld.addCritter(new Asa());
+		}else if(critter_class_name.equals("Kennedy")){
+			CritterWorld.addCritter(new Kennedy());
+		}else{
+			throw new InvalidCritterException("No such Critter");
+		}
 	}
 	
 	public static List<Critter> getInstances(String critter_class_name) throws InvalidCritterException {
