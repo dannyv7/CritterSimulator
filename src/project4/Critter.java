@@ -224,5 +224,32 @@ public abstract class Critter {
 		
 	}
 	
-	public static void displayWorld() {}
+	/**
+	 * Places critters onto the coordinate plane for displaying 
+	 */
+	private static void placeCritters(){
+		ArrayList<Critter> temp = CritterWorld.getLiveCritters();
+		Critter[][] displayGrid = CritterWorld.getWorld();
+		for(int i = 0; i < temp.size(); i+= 1){
+			displayGrid[temp.get(i).x_coord][temp.get(i).y_coord] = temp.get(i);
+		}
+	}
+	
+	/**
+	 * Prints the border and the critter
+	 */
+	public static void displayWorld() {
+		for(int i = 0; i <  Params.world_width +2; i += 1){
+			System.out.println("/");
+		}
+		placeCritters();
+		for(int i = 0; i < Params.world_width; i+= 1){
+			System.out.print("/");
+			for(int k = 0;  k < Params.world_height; k+=1){
+				System.out.print(CritterWorld.getWorld()[i][k]);
+			}
+			System.out.println("/");
+		}
+		
+	}
 }

@@ -3,10 +3,8 @@ import java.util.*;
 public class CritterWorld {
 	private static ArrayList<Critter> liveCritters = new ArrayList<Critter>(0);
 	private static  int numAlive = 0;
+	private static Critter[][] world = new Critter[Params.world_width][Params.world_height];
 	
-	public CritterWorld(){
-		
-	}
 	
 	/**
 	 * Accessor method for the ArrayList of alive Critters *
@@ -15,6 +13,10 @@ public class CritterWorld {
 	 */
 	public static ArrayList<Critter> getLiveCritters(){
 		return liveCritters;
+	}
+	
+	public static Critter[][] getWorld(){
+		return world;
 	}
 	
 	/**
