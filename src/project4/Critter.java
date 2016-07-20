@@ -231,8 +231,6 @@ public abstract class Critter {
 	private static void algaeSpawn() {
 		Critter[][] temp = CritterWorld.getWorld();
 		int spawnNum;
-		int coord_x;
-		int coord_y;
 		spawnNum = Critter.getRandomInt((Params.world_width * Params.world_height) / 1000) + 1;
 		for (int i = 0; i < spawnNum; i++) {
 			try {
@@ -241,7 +239,7 @@ public abstract class Critter {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			//temp[coord_x][coord_y] = new Algae();
+			temp[CritterWorld.getLiveCritters().get(CritterWorld.getLiveCritters().size() -1).x_coord][CritterWorld.getLiveCritters().get(CritterWorld.getLiveCritters().size() -1).y_coord] = new Algae();
 		}
 
 	}
