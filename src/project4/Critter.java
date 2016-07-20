@@ -14,6 +14,7 @@ package project4;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 /* see the PDF for descriptions of the methods and fields in this class
@@ -28,7 +29,25 @@ public abstract class Critter {
 	public static int getRandomInt(int max) {
 		return rand.nextInt(max);
 	}
-
+	
+	/**
+	 * Sets the x location of the Critter
+	 * @param x
+	 * 	x location on 2D plane
+	 */
+	private void setX(int x){
+		this.x_coord = x;
+	}
+	
+	/**
+	 * Sets the y location of the Critter
+	 * @param y
+	 * 	y location on 2D plane
+	 */
+	private void setY(int y){
+		this.y_coord = y;
+	}
+	
 	public static void setSeed(long new_seed) {
 		rand = new java.util.Random(new_seed);
 	}
@@ -59,6 +78,8 @@ public abstract class Critter {
 	}
 
 	protected final void reproduce(Critter offspring, int direction) {
+		offspring.newDir(1, direction);
+		CritterWorld.addToCrib(offspring);
 	}
 
 	public abstract void doTimeStep();
@@ -227,7 +248,8 @@ public abstract class Critter {
 
 	private static List<Critter> population = new java.util.ArrayList<Critter>();
 	private static List<Critter> babies = new java.util.ArrayList<Critter>();
-
+	
+	
 	private static void algaeSpawn() {
 		Critter[][] temp = CritterWorld.getWorld();
 		int spawnNum;
@@ -245,7 +267,7 @@ public abstract class Critter {
 	}
 
 	public static void worldTimeStep() {
-		ArrayList<Critter> step = CritterWorld.getLiveCritters();
+		LinkedList<Critter> step = CritterWorld.getLiveCritters();
 		Iterator<Critter> itr = step.iterator();
 		Critter next;
 
@@ -257,6 +279,7 @@ public abstract class Critter {
 
 		placeCritters();
 		algaeSpawn();
+		CritterWorld.removeDeadCritters();
 
 	}
 
@@ -265,7 +288,7 @@ public abstract class Critter {
 	 */
 
 	private static void placeCritters() {
-		ArrayList<Critter> temp = CritterWorld.getLiveCritters();
+		LinkedList<Critter> temp = CritterWorld.getLiveCritters();
 		Critter[][] displayGrid = CritterWorld.getWorld();
 		for (int i = 0; i < temp.size(); i += 1) {
 			if (displayGrid[temp.get(i).x_coord][temp.get(i).y_coord] != null) {
