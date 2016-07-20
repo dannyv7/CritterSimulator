@@ -70,14 +70,16 @@ public abstract class Critter {
 	private int y_coord = getRandomInt(Params.world_height);
 
 	protected final void walk(int direction) {
+		this.energy -= Params.walk_energy_cost;
 		this.newDir(1,direction);
 	}
 
 	protected final void run(int direction) {
+		this.energy -= Params.run_energy_cost;
 		this.newDir(2,direction);
 	}
 
-	protected final void reproduce(Critter offspring, int direction) {
+	protected final void reproduce(Critter offspring, int direction)  {
 		offspring.newDir(1, direction);
 		CritterWorld.addToCrib(offspring);
 	}
@@ -312,6 +314,9 @@ public abstract class Critter {
 			for (int k = 0; k < Params.world_height; k += 1) {
 				System.out.print(CritterWorld.getWorld()[i][k]);
 			}
+			System.out.println("/");
+		}
+		for (int i = 0; i < Params.world_width + 2; i += 1) {
 			System.out.println("/");
 		}
 
