@@ -80,6 +80,8 @@ public abstract class Critter {
 	}
 
 	protected final void reproduce(Critter offspring, int direction)  {
+		this.energy /= 2;
+		offspring.energy = this.energy;
 		offspring.newDir(1, direction);
 		CritterWorld.addToCrib(offspring);
 	}

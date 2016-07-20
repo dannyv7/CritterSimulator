@@ -9,7 +9,7 @@ public class Mia extends Critter{
 		int dir = getRandomInt(3);
 		run(dir);
 		
-		if(this.getEnergy() > Params.min_reproduce_energy){
+		if(this.getEnergy() >= Params.min_reproduce_energy){
 			Critter child = new Mia();
 			reproduce(child, dir);
 		}
