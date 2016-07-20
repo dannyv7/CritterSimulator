@@ -27,7 +27,6 @@ public class Lexi extends Critter{
 			
 		} 
 		return false;
-		return false;
 	}
 
 }

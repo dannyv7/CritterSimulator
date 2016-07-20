@@ -25,7 +25,6 @@ public class Asa extends Critter{
 			
 		} 
 		return false;
-		return false;
 	}
 
 }
