@@ -16,7 +16,19 @@ public class Kennedy extends Critter{
 
 	@Override
 	public boolean fight(String oponent) {
-		// TODO Auto-generated method stub
+		if (oponent.equals("Algae")) {
+			
+		} else if (oponent.equals("Craig")) {
+			
+		} else if (oponent.equals("Mia")) {
+			
+		} else if (oponent.equals("Lexi")) {
+			
+		} else if (oponent.equals("Asa")) {
+			
+		} else if (oponent.equals("Kennedy")) {
+			
+		} 
 		return false;
 	}
 
