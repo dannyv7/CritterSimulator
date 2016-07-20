@@ -21,7 +21,7 @@ import java.util.List;
  * no new public, protected or default-package code or data can be added to Critter
  */
 public abstract class Critter {
-	private int[] directionalPreferences = null;
+	private int[] directionalPreferences = new int[16];
 
 	private static java.util.Random rand = new java.util.Random();
 
@@ -41,8 +41,8 @@ public abstract class Critter {
 		return "";
 	}
 
-	private int energy = 0;
-
+	private int energy = Params.start_energy;
+		
 	protected int getEnergy() {
 		return energy;
 	}
@@ -51,10 +51,11 @@ public abstract class Critter {
 	private int y_coord = getRandomInt(Params.world_height);
 
 	protected final void walk(int direction) {
+		this.newDir(1,direction);
 	}
 
 	protected final void run(int direction) {
-
+		this.newDir(2,direction);
 	}
 
 	protected final void reproduce(Critter offspring, int direction) {
