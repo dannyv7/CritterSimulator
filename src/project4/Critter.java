@@ -374,7 +374,7 @@ public abstract class Critter {
 				if(CritterWorld.getWorld()[k][i] == null){
 					System.out.print(" ");
 				}else{
-					System.out.println(CritterWorld.getWorld()[k][i]);
+					System.out.print(CritterWorld.getWorld()[k][i]);
 				}
 			}
 			
