@@ -4,7 +4,8 @@ public class Asa extends Critter{
 
 	@Override
 	public void doTimeStep() {
-		// TODO Auto-generated method stub
+		int dir = getRandomInt(3)+4;
+		run(dir);
 		
 	}
 

@@ -4,7 +4,7 @@ public class Lexi extends Critter{
 
 	@Override
 	public void doTimeStep() {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
