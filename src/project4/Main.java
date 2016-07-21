@@ -20,8 +20,7 @@ public class Main {
 		Critter.displayWorld();
 		Critter.worldTimeStep();
 		Critter.displayWorld();
-			
-			
+		Critter.worldTimeStep();
 		
 	}
 }

@@ -297,6 +297,7 @@ public abstract class Critter {
 		int x = 0;
 		int y = 0;
 		LinkedList<Critter> temp = CritterWorld.getLiveCritters();
+		CritterWorld.resetWorld();
 		Critter[][] displayGrid = CritterWorld.getWorld();
 		for (int i = 0; i < temp.size(); i += 1) {
 			/* Conflict resolution */
