@@ -5,12 +5,13 @@ package project4;
  * Prefers to stay still and rarely walks
  * Prefers to move in NSWE directions
  * Very conservative - only fights when it has a high chance of winning i.e. energy >= 80
+ * Does not fight one another
  * @author danny
  *
  */
 public class Lexi extends Critter{
 	private int[] directionalPref = new int[]{0, 1, 2, 3, 4, 5, 6, 7, 0, 2, 4, 6, 0, 2, 4, 6};
-	private int[] behavioralPref = new int[]{0, 1, 0, 0, 0, 1};
+	private int[] behavioralPref = new int[]{0, 1, 0, 1, 0, 1};
 	@Override 
 	public String toString(){
 		return("L");
@@ -39,7 +40,7 @@ public class Lexi extends Critter{
 		} else if (oponent.equals("M")) {
 			return this.getEnergy() >= 80;
 		} else if (oponent.equals("L")) {
-			return this.getEnergy() >= 80;
+			return false;
 		} else if (oponent.equals("A")) {
 			return this.getEnergy() >= 80;
 		} else if (oponent.equals("K")) {

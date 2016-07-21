@@ -27,6 +27,7 @@ public abstract class Critter {
 		hasMoved = b;
 	}
 	private static java.util.Random rand = new java.util.Random();
+	
 
 	public static int getRandomInt(int max) {
 		return rand.nextInt(max);
@@ -79,6 +80,7 @@ public abstract class Critter {
 			this.newDir(1, direction);
 			this.setMoved(true);
 		}
+		if (this.energy < 0){ this.energy = 0; }
 	}
 
 	protected final void run(int direction) {
@@ -87,6 +89,7 @@ public abstract class Critter {
 			this.newDir(2, direction);
 			this.setMoved(true);
 		}
+		if (this.energy < 0){ this.energy = 0; }
 	}
 
 	protected final void reproduce(Critter offspring, int direction) {
@@ -96,6 +99,7 @@ public abstract class Critter {
 		offspring.y_coord = this.y_coord;
 		offspring.newDir(1, direction);
 		CritterWorld.addToCrib(offspring);
+		if (this.energy < 0){ this.energy = 0; }
 	}
 
 	public abstract void doTimeStep();
@@ -264,6 +268,19 @@ public abstract class Critter {
 
 	private static List<Critter> population = new java.util.ArrayList<Critter>();
 	private static List<Critter> babies = new java.util.ArrayList<Critter>();
+	
+	
+	private static void restCosts(){
+		LinkedList<Critter> step = CritterWorld.getLiveCritters();
+		Iterator<Critter> itr = step.iterator();
+		Critter next;
+
+		/* All critters executed their timeStep method */
+		while (itr.hasNext()) {
+			next = itr.next();
+			next.energy -= Params.rest_energy_cost;
+		}
+	}
 
 	private static void algaeSpawn() {
 		Critter[][] temp = CritterWorld.getWorld();
@@ -294,7 +311,9 @@ public abstract class Critter {
 
 		placeCritters();
 		algaeSpawn();
+		restCosts();
 		CritterWorld.removeDeadCritters();
+		CritterWorld.birthBabies();
 
 	}
 
@@ -305,18 +324,22 @@ public abstract class Critter {
 	private static void placeCritters() {
 		int x = 0;
 		int y = 0;
-		LinkedList<Critter> temp = CritterWorld.getLiveCritters();
+		ArrayList<Critter> temp = new ArrayList<Critter>(0);
+		LinkedList<Critter> step = CritterWorld.getLiveCritters();
+		Iterator<Critter> itr = step.iterator();
+		Critter next;
+
+		/* All critters executed their timeStep method */
+		while (itr.hasNext()) {
+			next = itr.next();
+			temp.add(next);
+		}
+		
+		/* Resets our frame */
 		CritterWorld.resetWorld();
 		Critter[][] displayGrid = CritterWorld.getWorld();
 		for (int i = 0; i < temp.size(); i += 1) {
 			/* Conflict resolution */
-			/*if(temp.get(i).x_coord > Params.world_width -1 || temp.get(i).x_coord < 0 || temp.get(i).y_coord > Params.world_height -1 || temp.get(i).y_coord < 1){
-				int xxx = temp.get(i).x_coord;
-				int yyyy = temp.get(i).y_coord;
-				System.out.println(xxx + " x coord");
-				System.out.println(yyyy + " x coord");
-				System.out.println(" penis ");
-			}*/
 			if (displayGrid[temp.get(i).x_coord][temp.get(i).y_coord] != null) {
 				/* Who cares if Algae spawns where it wants ??*/
 				if(temp.get(i) instanceof Algae){
@@ -328,15 +351,22 @@ public abstract class Critter {
 				int originalRoll;
 				int newRoll;
 				/* Determine whether the original inhabitant wants to fight or not */
-				if (originalCritter.fight(newCritter.toString())) {
-					originalRoll = getRandomInt(originalCritter.energy);
+				if(originalCritter instanceof Algae){originalRoll = 0; }
+				else if (originalCritter.fight(newCritter.toString())) {
+					if(originalCritter.energy <= 0){ originalRoll = 0;}
+					else{
+						originalRoll = getRandomInt(originalCritter.energy);
+					}
 				} else {
 					originalRoll = 0;
 					x = originalCritter.x_coord;
 					y = newCritter.y_coord;
+					/* Find an appropriate escape destination */
 					while (displayGrid[originalCritter.x_coord][originalCritter.y_coord] != null) {
 						originalCritter.x_coord = x;
 						originalCritter.y_coord = y;
+						/* If already moved, penalize it for moving and it remains */
+						if(originalCritter.hasMoved){ originalCritter.energy-=2; if (originalCritter.energy < 0){ originalCritter.energy = 0; }break;}
 						originalCritter.run(getRandomInt(7));
 					}
 
@@ -344,14 +374,20 @@ public abstract class Critter {
 
 				/* Determines whether the invader will fight */
 				if (newCritter.fight(originalCritter.toString())) {
-					newRoll = getRandomInt(temp.get(i).energy);
+					if(newCritter.energy <= 0){ newRoll = 0;}
+					else{
+						newRoll = getRandomInt(newCritter.energy);
+					}
 				} else {
 					newRoll = 0;
 					x = newCritter.x_coord;
 					y = newCritter.y_coord;
+					/* Find an appropriate escape location */
 					while (displayGrid[newCritter.x_coord][newCritter.y_coord] != null) {
 						newCritter.x_coord = x;
 						newCritter.y_coord = y;
+						/* If already moved, penalize it and it stays */
+						if(newCritter.hasMoved){ newCritter.energy-=2; if (newCritter.energy < 0){ newCritter.energy = 0; } break;}
 						newCritter.run(getRandomInt(7));
 					}
 				}
@@ -359,12 +395,12 @@ public abstract class Critter {
 				/* Determine the winner if they are still occcupying the same spot */
 				if(originalCritter.x_coord == newCritter.x_coord && originalCritter.y_coord == newCritter.y_coord){
 					/* Original inhabitant is the winner */
-					if (originalRoll >= newRoll) {
+					if (originalRoll >= newRoll && ! (originalCritter instanceof Algae)) {
 						originalCritter.energy += newCritter.energy / 2;
 						newCritter.energy = 0;
 						displayGrid[originalCritter.x_coord][originalCritter.y_coord] = originalCritter;
 					/* Invader wins */
-					}else if(newRoll > originalRoll){
+					}else if(newRoll > originalRoll || (originalCritter instanceof Algae)){
 						newCritter.energy += originalCritter.energy / 2;
 						originalCritter.energy = 0;
 						displayGrid[newCritter.x_coord][newCritter.y_coord] = newCritter;
