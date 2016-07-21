@@ -308,7 +308,7 @@ public abstract class Critter {
 			next = itr.next();
 			next.doTimeStep();
 		}
-
+		//CritterWorld.removeDeadCritters();
 		placeCritters();
 		algaeSpawn();
 		restCosts();
@@ -339,8 +339,9 @@ public abstract class Critter {
 		CritterWorld.resetWorld();
 		Critter[][] displayGrid = CritterWorld.getWorld();
 		for (int i = 0; i < temp.size(); i += 1) {
+			if(temp.get(i).energy <= 0){}
 			/* Conflict resolution */
-			if (displayGrid[temp.get(i).x_coord][temp.get(i).y_coord] != null) {
+			else if (displayGrid[temp.get(i).x_coord][temp.get(i).y_coord] != null) {
 				/* Who cares if Algae spawns where it wants ??*/
 				if(temp.get(i) instanceof Algae){
 					return;
@@ -360,7 +361,7 @@ public abstract class Critter {
 				} else {
 					originalRoll = 0;
 					x = originalCritter.x_coord;
-					y = newCritter.y_coord;
+					y = originalCritter.y_coord;
 					/* Find an appropriate escape destination */
 					while (displayGrid[originalCritter.x_coord][originalCritter.y_coord] != null) {
 						originalCritter.x_coord = x;
