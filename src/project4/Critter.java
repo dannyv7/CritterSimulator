@@ -22,8 +22,10 @@ import java.util.List;
  * no new public, protected or default-package code or data can be added to Critter
  */
 public abstract class Critter {
-	private int[] directionalPreferences = new int[16];
-
+	private boolean hasMoved = false;
+	public void setMoved(boolean b){
+		hasMoved = b;
+	}
 	private static java.util.Random rand = new java.util.Random();
 
 	public static int getRandomInt(int max) {
@@ -73,17 +75,25 @@ public abstract class Critter {
 
 	protected final void walk(int direction) {
 		this.energy -= Params.walk_energy_cost;
-		this.newDir(1, direction);
+		if(!this.hasMoved){
+			this.newDir(1, direction);
+			this.setMoved(true);
+		}
 	}
 
 	protected final void run(int direction) {
 		this.energy -= Params.run_energy_cost;
-		this.newDir(2, direction);
+		if(!this.hasMoved){
+			this.newDir(2, direction);
+			this.setMoved(true);
+		}
 	}
 
 	protected final void reproduce(Critter offspring, int direction) {
 		this.energy /= 2;
 		offspring.energy = this.energy;
+		offspring.x_coord = this.x_coord;
+		offspring.y_coord = this.y_coord;
 		offspring.newDir(1, direction);
 		CritterWorld.addToCrib(offspring);
 	}
@@ -258,7 +268,7 @@ public abstract class Critter {
 	private static void algaeSpawn() {
 		Critter[][] temp = CritterWorld.getWorld();
 		int spawnNum;
-		spawnNum = Critter.getRandomInt((Params.world_width * Params.world_height) / 1000) + 1;
+		spawnNum = Params.refresh_algae_count;
 		for (int i = 0; i < spawnNum; i++) {
 			try {
 				makeCritter("Algae");
@@ -266,8 +276,7 @@ public abstract class Critter {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			temp[CritterWorld.getLiveCritters().get(CritterWorld.getLiveCritters().size() - 1).x_coord][CritterWorld
-					.getLiveCritters().get(CritterWorld.getLiveCritters().size() - 1).y_coord] = new Algae();
+			temp[CritterWorld.getLiveCritters().get(CritterWorld.getLiveCritters().size() - 1).x_coord][CritterWorld.getLiveCritters().get(CritterWorld.getLiveCritters().size() - 1).y_coord] = new Algae();
 		}
 
 	}

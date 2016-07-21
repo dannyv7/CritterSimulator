@@ -32,7 +32,7 @@ public class Main {
 		for(int i = 0; i < 25; i+= 1){
 			Critter.makeCritter("Asa");
 		}
-		for(int i = 0; i < 5; i+= 1){
+		for(int i = 0; i < 10; i+= 1){
 			Critter.displayWorld();
 			Critter.worldTimeStep();
 		}
