@@ -278,7 +278,9 @@ public abstract class Critter {
 		/* All critters executed their timeStep method */
 		while (itr.hasNext()) {
 			next = itr.next();
-			next.energy -= Params.rest_energy_cost;
+			if(!next.hasMoved){
+				next.energy -= Params.rest_energy_cost;
+			}
 		}
 	}
 
