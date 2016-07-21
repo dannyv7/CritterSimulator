@@ -301,44 +301,54 @@ public abstract class Critter {
 		for (int i = 0; i < temp.size(); i += 1) {
 			/* Conflict resolution */
 			if (displayGrid[temp.get(i).x_coord][temp.get(i).y_coord] != null) {
+				Critter originalCritter = displayGrid[temp.get(i).x_coord][temp.get(i).y_coord];
+				Critter newCritter = temp.get(i);
 				int originalRoll;
 				int newRoll;
-
-				/* Determine whether the invader wants to fight or not */
-				if (displayGrid[temp.get(i).x_coord][temp.get(i).y_coord].fight(temp.get(i).toString())) {
-					originalRoll = getRandomInt(displayGrid[temp.get(i).x_coord][temp.get(i).y_coord].energy);
+				/* Determine whether the original inhabitant wants to fight or not */
+				if (originalCritter.fight(newCritter.toString())) {
+					originalRoll = getRandomInt(originalCritter.energy);
 				} else {
 					originalRoll = 0;
-					x = temp.get(i).x_coord;
-					y = temp.get(i).y_coord;
-					while (displayGrid[temp.get(i).x_coord][temp.get(i).y_coord] != null) {
-						temp.get(i).x_coord = x;
-						temp.get(i).y_coord = y;
-						displayGrid[temp.get(i).x_coord][temp.get(i).y_coord].run(getRandomInt(7));
+					x = originalCritter.x_coord;
+					y = newCritter.y_coord;
+					while (displayGrid[originalCritter.x_coord][originalCritter.y_coord] != null) {
+						originalCritter.x_coord = x;
+						originalCritter.y_coord = y;
+						originalCritter.run(getRandomInt(7));
 					}
 
 				}
 
-				/* Determines whether the original inhabitant will fight */
-				if (temp.get(i).fight(displayGrid[temp.get(i).x_coord][temp.get(i).y_coord].toString())) {
+				/* Determines whether the invader will fight */
+				if (newCritter.fight(originalCritter.toString())) {
 					newRoll = getRandomInt(temp.get(i).energy);
 				} else {
 					newRoll = 0;
-					x = temp.get(i).x_coord;
-					y = temp.get(i).y_coord;
-					while (displayGrid[temp.get(i).x_coord][temp.get(i).y_coord] != null) {
-						temp.get(i).x_coord = x;
-						temp.get(i).y_coord = y;
-						displayGrid[temp.get(i).x_coord][temp.get(i).y_coord].run(getRandomInt(7));
+					x = newCritter.x_coord;
+					y = newCritter.y_coord;
+					while (displayGrid[newCritter.x_coord][newCritter.y_coord] != null) {
+						newCritter.x_coord = x;
+						newCritter.y_coord = y;
+						displayGrid[newCritter.x_coord][newCritter.y_coord].run(getRandomInt(7));
 					}
 				}
 
-				/* Determine the winner */
-				if (originalRoll > newRoll) {
-					displayGrid[temp.get(i).x_coord][temp.get(i).y_coord].energy += temp.get(i).energy / 2;
-					temp.get(i).energy = 0;
+				/* Determine the winner if they are still occcupying the same spot */
+				if(originalCritter.x_coord == newCritter.x_coord && originalCritter.y_coord == newCritter.y_coord){
+					/* Original inhabitant is the winner */
+					if (originalRoll >= newRoll) {
+						originalCritter.energy += newCritter.energy / 2;
+						newCritter.energy = 0;
+						displayGrid[originalCritter.x_coord][originalCritter.y_coord] = originalCritter;
+					/* Invader wins */
+					}else if(newRoll > originalRoll){
+						newCritter.energy += originalCritter.energy / 2;
+						originalCritter.energy = 0;
+						displayGrid[newCritter.x_coord][newCritter.y_coord] = newCritter;
+					}
 				}
-			} else {
+			} else {	//Empty slot, just place the Critter
 				displayGrid[temp.get(i).x_coord][temp.get(i).y_coord] = temp.get(i);
 			}
 		}
