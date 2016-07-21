@@ -359,26 +359,34 @@ public abstract class Critter {
 	 * Prints the border and the critter
 	 */
 	public static void displayWorld() {
+		/* Creates the top border */
 		System.out.print("|");
-		for (int i = 0; i < Params.world_width + 2; i += 1) {
-			
+		for(int i = 0; i < Params.world_width; i += 1){
 			System.out.print("-");
 		}
-		//placeCritters();
-		for (int i = 0; i < Params.world_width; i += 1) {
-			System.out.println("|");
-			for (int k = 0; k < Params.world_height; k += 1) {
-				if(CritterWorld.getWorld()[i][k] == null){
-					System.out.println("|");
+		System.out.println("|");
+		
+		/* Prints the critters/empty slots */
+		for(int i = 0; i < Params.world_height; i += 1){
+			System.out.print("|");
+			
+			for(int k = 0; k < Params.world_width; k += 1){
+				if(CritterWorld.getWorld()[k][i] == null){
+					System.out.print(" ");
 				}else{
-				System.out.print(CritterWorld.getWorld()[i][k]);
+					System.out.println(CritterWorld.getWorld()[k][i]);
 				}
 			}
+			
 			System.out.println("|");
 		}
-		for (int i = 0; i < Params.world_width + 2; i += 1) {
+		
+		/* Creates the bottom border */
+		System.out.print("|");
+		for(int i = 0; i < Params.world_width; i += 1){
 			System.out.print("-");
 		}
+		System.out.println("|");
 
 	}
 }
