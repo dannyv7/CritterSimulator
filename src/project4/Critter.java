@@ -29,25 +29,27 @@ public abstract class Critter {
 	public static int getRandomInt(int max) {
 		return rand.nextInt(max);
 	}
-	
+
 	/**
 	 * Sets the x location of the Critter
+	 * 
 	 * @param x
-	 * 	x location on 2D plane
+	 *            x location on 2D plane
 	 */
-	private void setX(int x){
+	private void setX(int x) {
 		this.x_coord = x;
 	}
-	
+
 	/**
 	 * Sets the y location of the Critter
+	 * 
 	 * @param y
-	 * 	y location on 2D plane
+	 *            y location on 2D plane
 	 */
-	private void setY(int y){
+	private void setY(int y) {
 		this.y_coord = y;
 	}
-	
+
 	public static void setSeed(long new_seed) {
 		rand = new java.util.Random(new_seed);
 	}
@@ -61,7 +63,7 @@ public abstract class Critter {
 	}
 
 	private int energy = Params.start_energy;
-		
+
 	protected int getEnergy() {
 		return energy;
 	}
@@ -71,15 +73,15 @@ public abstract class Critter {
 
 	protected final void walk(int direction) {
 		this.energy -= Params.walk_energy_cost;
-		this.newDir(1,direction);
+		this.newDir(1, direction);
 	}
 
 	protected final void run(int direction) {
 		this.energy -= Params.run_energy_cost;
-		this.newDir(2,direction);
+		this.newDir(2, direction);
 	}
 
-	protected final void reproduce(Critter offspring, int direction)  {
+	protected final void reproduce(Critter offspring, int direction) {
 		this.energy /= 2;
 		offspring.energy = this.energy;
 		offspring.newDir(1, direction);
@@ -252,8 +254,7 @@ public abstract class Critter {
 
 	private static List<Critter> population = new java.util.ArrayList<Critter>();
 	private static List<Critter> babies = new java.util.ArrayList<Critter>();
-	
-	
+
 	private static void algaeSpawn() {
 		Critter[][] temp = CritterWorld.getWorld();
 		int spawnNum;
@@ -265,7 +266,8 @@ public abstract class Critter {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			temp[CritterWorld.getLiveCritters().get(CritterWorld.getLiveCritters().size() -1).x_coord][CritterWorld.getLiveCritters().get(CritterWorld.getLiveCritters().size() -1).y_coord] = new Algae();
+			temp[CritterWorld.getLiveCritters().get(CritterWorld.getLiveCritters().size() - 1).x_coord][CritterWorld
+					.getLiveCritters().get(CritterWorld.getLiveCritters().size() - 1).y_coord] = new Algae();
 		}
 
 	}
@@ -292,6 +294,8 @@ public abstract class Critter {
 	 */
 
 	private static void placeCritters() {
+		int x = 0;
+		int y = 0;
 		LinkedList<Critter> temp = CritterWorld.getLiveCritters();
 		Critter[][] displayGrid = CritterWorld.getWorld();
 		for (int i = 0; i < temp.size(); i += 1) {
@@ -299,23 +303,42 @@ public abstract class Critter {
 			if (displayGrid[temp.get(i).x_coord][temp.get(i).y_coord] != null) {
 				int originalRoll;
 				int newRoll;
-				
+
 				/* Determine whether the invader wants to fight or not */
-				if(displayGrid[temp.get(i).x_coord][temp.get(i).y_coord].fight(temp.get(i).toString())){
+				if (displayGrid[temp.get(i).x_coord][temp.get(i).y_coord].fight(temp.get(i).toString())) {
 					originalRoll = getRandomInt(displayGrid[temp.get(i).x_coord][temp.get(i).y_coord].energy);
-				}else{ originalRoll = 0;}
-				
+				} else {
+					originalRoll = 0;
+					x = temp.get(i).x_coord;
+					y = temp.get(i).y_coord;
+					while (displayGrid[temp.get(i).x_coord][temp.get(i).y_coord] != null) {
+						temp.get(i).x_coord = x;
+						temp.get(i).y_coord = y;
+						displayGrid[temp.get(i).x_coord][temp.get(i).y_coord].run(getRandomInt(7));
+					}
+
+				}
+
 				/* Determines whether the original inhabitant will fight */
-				if(temp.get(i).fight(displayGrid[temp.get(i).x_coord][temp.get(i).y_coord].toString())){
+				if (temp.get(i).fight(displayGrid[temp.get(i).x_coord][temp.get(i).y_coord].toString())) {
 					newRoll = getRandomInt(temp.get(i).energy);
-				}else{ newRoll = 0; }
-				
+				} else {
+					newRoll = 0;
+					x = temp.get(i).x_coord;
+					y = temp.get(i).y_coord;
+					while (displayGrid[temp.get(i).x_coord][temp.get(i).y_coord] != null) {
+						temp.get(i).x_coord = x;
+						temp.get(i).y_coord = y;
+						displayGrid[temp.get(i).x_coord][temp.get(i).y_coord].run(getRandomInt(7));
+					}
+				}
+
 				/* Determine the winner */
-				if(originalRoll > newRoll){
-					displayGrid[temp.get(i).x_coord][temp.get(i).y_coord].energy += temp.get(i).energy/2;
+				if (originalRoll > newRoll) {
+					displayGrid[temp.get(i).x_coord][temp.get(i).y_coord].energy += temp.get(i).energy / 2;
 					temp.get(i).energy = 0;
 				}
-			}else {
+			} else {
 				displayGrid[temp.get(i).x_coord][temp.get(i).y_coord] = temp.get(i);
 			}
 		}
