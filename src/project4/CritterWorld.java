@@ -19,6 +19,10 @@ public class CritterWorld {
 		return world;
 	}
 	
+	public static void resetWorld(){
+		world = new Critter[Params.world_width][Params.world_height];
+		return;
+	}
 	/**
 	 * Adds a critter to the world 
 	 * @param c

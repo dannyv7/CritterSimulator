@@ -148,7 +148,7 @@ public abstract class Critter {
 	 * @param y
 	 * 	New y coord
 	 * @return
-	 * 	Wrapped y coord or just y if edge is not reacched
+	 * 	Wrapped y coord or just y if edge is not reached
 	 */
 	private static int wrapY(int y) {
         if (y < 0) { return Params.world_width - 1; }
@@ -209,7 +209,9 @@ public abstract class Critter {
 
 	private	static List<Critter> population = new java.util.ArrayList<Critter>();
 	private static List<Critter> babies = new java.util.ArrayList<Critter>();
-		
+	
+	
+	
 	public static void worldTimeStep() {
 		ArrayList<Critter> step = CritterWorld.getLiveCritters();
 		Iterator<Critter> itr = step.iterator();
@@ -221,18 +223,29 @@ public abstract class Critter {
 			next.doTimeStep();
 		}
 		
+		placeCritters();
+		
 		
 	}
+	
+
+	
 	
 	/**
 	 * Places critters onto the coordinate plane for displaying 
 	 */
+	
 	private static void placeCritters(){
 		ArrayList<Critter> temp = CritterWorld.getLiveCritters();
 		Critter[][] displayGrid = CritterWorld.getWorld();
 		for(int i = 0; i < temp.size(); i+= 1){
+			if(displayGrid[temp.get(i).x_coord][temp.get(i).y_coord] != null){
+				displayGrid[temp.get(i).x_coord][temp.get(i).y_coord].fight(temp.get(i).toString());
+			}
 			displayGrid[temp.get(i).x_coord][temp.get(i).y_coord] = temp.get(i);
 		}
+	
+		
 	}
 	
 	/**
