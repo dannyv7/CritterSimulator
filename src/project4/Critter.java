@@ -68,8 +68,8 @@ public abstract class Critter {
 		return energy;
 	}
 
-	private int x_coord = getRandomInt(Params.world_width);
-	private int y_coord = getRandomInt(Params.world_height);
+	private int x_coord = Math.abs(getRandomInt(Params.world_width)-1);
+	private int y_coord = Math.abs(getRandomInt(Params.world_height)-1);
 
 	protected final void walk(int direction) {
 		this.energy -= Params.walk_energy_cost;
@@ -179,7 +179,7 @@ public abstract class Critter {
 	private static int wrapX(int x) {
 		if (x < 0) {
 			return Params.world_width - 1;
-		} else if (x == Params.world_width) {
+		} else if (x >= Params.world_width) {
 			return 0;
 		} else {
 			return x;
@@ -195,8 +195,8 @@ public abstract class Critter {
 	 */
 	private static int wrapY(int y) {
 		if (y < 0) {
-			return Params.world_width - 1;
-		} else if (y == Params.world_width) {
+			return Params.world_height - 1;
+		} else if (y >= Params.world_height) {
 			return 0;
 		} else {
 			return y;
@@ -222,7 +222,7 @@ public abstract class Critter {
 			this.x_coord = wrapX(this.x_coord + dist);
 			this.y_coord = wrapY(this.y_coord + dist);
 			break;
-		/* Moves directlly to the East */
+		/* Moves directly to the East */
 		case 2:
 			this.x_coord = wrapX(this.x_coord + dist);
 			break;
@@ -301,7 +301,19 @@ public abstract class Critter {
 		Critter[][] displayGrid = CritterWorld.getWorld();
 		for (int i = 0; i < temp.size(); i += 1) {
 			/* Conflict resolution */
+			/*if(temp.get(i).x_coord > Params.world_width -1 || temp.get(i).x_coord < 0 || temp.get(i).y_coord > Params.world_height -1 || temp.get(i).y_coord < 1){
+				int xxx = temp.get(i).x_coord;
+				int yyyy = temp.get(i).y_coord;
+				System.out.println(xxx + " x coord");
+				System.out.println(yyyy + " x coord");
+				System.out.println(" penis ");
+			}*/
 			if (displayGrid[temp.get(i).x_coord][temp.get(i).y_coord] != null) {
+				/* Who cares if Algae spawns where it wants ??*/
+				if(temp.get(i) instanceof Algae){
+					return;
+				}
+				/* Bookkeeping stuff */
 				Critter originalCritter = displayGrid[temp.get(i).x_coord][temp.get(i).y_coord];
 				Critter newCritter = temp.get(i);
 				int originalRoll;
@@ -331,7 +343,7 @@ public abstract class Critter {
 					while (displayGrid[newCritter.x_coord][newCritter.y_coord] != null) {
 						newCritter.x_coord = x;
 						newCritter.y_coord = y;
-						displayGrid[newCritter.x_coord][newCritter.y_coord].run(getRandomInt(7));
+						newCritter.run(getRandomInt(7));
 					}
 				}
 

@@ -11,16 +11,31 @@
  * Summer 2016
  */
 package project4;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InvalidCritterException {
 		System.out.println("GLHF");
 		Critter.displayWorld();
 		Critter.worldTimeStep();
-		Critter.displayWorld();
-		Critter.worldTimeStep();
+		for(int i = 0; i < 25; i+= 1){
+			Critter.makeCritter("Mia");
+		}
+		for(int i = 0; i < 25; i+= 1){
+			Critter.makeCritter("Kennedy");
+		}
+		for(int i = 0; i < 25; i+= 1){
+			Critter.makeCritter("Lexi");
+		}
+		for(int i = 0; i < 25; i+= 1){
+			Critter.makeCritter("Asa");
+		}
+		for(int i = 0; i < 5; i+= 1){
+			Critter.displayWorld();
+			Critter.worldTimeStep();
+		}
 		
 	}
 }
