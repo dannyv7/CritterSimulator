@@ -16,74 +16,83 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-
 /* see the PDF for descriptions of the methods and fields in this class
  * you may add fields, methods or inner classes to Critter ONLY if you make your additions private
  * no new public, protected or default-package code or data can be added to Critter
  */
 public abstract class Critter {
 	private int[] directionalPreferences = null;
-	
+
 	private static java.util.Random rand = new java.util.Random();
+
 	public static int getRandomInt(int max) {
 		return rand.nextInt(max);
 	}
-	
+
 	public static void setSeed(long new_seed) {
 		rand = new java.util.Random(new_seed);
 	}
-	
-	
-	/* a one-character long string that visually depicts your critter in the ASCII interface */
-	public String toString() { return ""; }
-	
+
+	/*
+	 * a one-character long string that visually depicts your critter in the
+	 * ASCII interface
+	 */
+	public String toString() {
+		return "";
+	}
+
 	private int energy = 0;
-	protected int getEnergy() { return energy; }
-	
+
+	protected int getEnergy() {
+		return energy;
+	}
+
 	private int x_coord = getRandomInt(Params.world_width);
 	private int y_coord = getRandomInt(Params.world_height);
-	
+
 	protected final void walk(int direction) {
 	}
-	
+
 	protected final void run(int direction) {
-		
+
 	}
-	
+
 	protected final void reproduce(Critter offspring, int direction) {
 	}
 
 	public abstract void doTimeStep();
+
 	public abstract boolean fight(String oponent);
-	
-	/* create and initialize a Critter subclass
-	 * critter_class_name must be the name of a concrete subclass of Critter, if not
-	 * an InvalidCritterException must be thrown
+
+	/*
+	 * create and initialize a Critter subclass critter_class_name must be the
+	 * name of a concrete subclass of Critter, if not an InvalidCritterException
+	 * must be thrown
 	 */
 	public static void makeCritter(String critter_class_name) throws InvalidCritterException {
-		if(critter_class_name.equals("Algae")){
+		if (critter_class_name.equals("Algae")) {
 			CritterWorld.addCritter(new Algae());
-		}else if(critter_class_name.equals("Craig")){
+		} else if (critter_class_name.equals("Craig")) {
 			CritterWorld.addCritter(new Craig());
-		}else if(critter_class_name.equals("Mia")){
+		} else if (critter_class_name.equals("Mia")) {
 			CritterWorld.addCritter(new Mia());
-		}else if(critter_class_name.equals("Lexi")){
+		} else if (critter_class_name.equals("Lexi")) {
 			CritterWorld.addCritter(new Lexi());
-		}else if(critter_class_name.equals("Asa")){
+		} else if (critter_class_name.equals("Asa")) {
 			CritterWorld.addCritter(new Asa());
-		}else if(critter_class_name.equals("Kennedy")){
+		} else if (critter_class_name.equals("Kennedy")) {
 			CritterWorld.addCritter(new Kennedy());
-		}else{
+		} else {
 			throw new InvalidCritterException("No such Critter");
 		}
 	}
-	
+
 	public static List<Critter> getInstances(String critter_class_name) throws InvalidCritterException {
 		List<Critter> result = new java.util.ArrayList<Critter>();
-	
+
 		return result;
 	}
-	
+
 	public static void runStats(List<Critter> critters) {
 		System.out.print("" + critters.size() + " critters as follows -- ");
 		java.util.Map<String, Integer> critter_count = new java.util.HashMap<String, Integer>();
@@ -91,7 +100,7 @@ public abstract class Critter {
 			String crit_string = crit.toString();
 			Integer old_count = critter_count.get(crit_string);
 			if (old_count == null) {
-				critter_count.put(crit_string,  1);
+				critter_count.put(crit_string, 1);
 			} else {
 				critter_count.put(crit_string, old_count.intValue() + 1);
 			}
@@ -101,168 +110,188 @@ public abstract class Critter {
 			System.out.print(prefix + s + ":" + critter_count.get(s));
 			prefix = ", ";
 		}
-		System.out.println();		
+		System.out.println();
 	}
-	
-	/* the TestCritter class allows some critters to "cheat". If you want to 
-	 * create tests of your Critter model, you can create subclasses of this class
-	 * and then use the setter functions contained here. 
+
+	/*
+	 * the TestCritter class allows some critters to "cheat". If you want to
+	 * create tests of your Critter model, you can create subclasses of this
+	 * class and then use the setter functions contained here.
 	 * 
-	 * NOTE: you must make sure that the setter functions work with your implementation
-	 * of Critter. That means, if you're recording the positions of your critters
-	 * using some sort of external grid or some other data structure in addition
-	 * to the x_coord and y_coord functions, then you MUST update these setter functions
-	 * so that they correctly update your grid/data structure.
+	 * NOTE: you must make sure that the setter functions work with your
+	 * implementation of Critter. That means, if you're recording the positions
+	 * of your critters using some sort of external grid or some other data
+	 * structure in addition to the x_coord and y_coord functions, then you MUST
+	 * update these setter functions so that they correctly update your
+	 * grid/data structure.
 	 */
 	static abstract class TestCritter extends Critter {
 		protected void setEnergy(int new_energy_value) {
 			super.energy = new_energy_value;
 		}
-		
+
 		protected void setXCoord(int new_x_coord) {
 			super.x_coord = new_x_coord;
 		}
-		
+
 		protected void setYCoord(int new_y_coord) {
 			super.y_coord = new_y_coord;
 		}
 	}
-	
-	/* Helper methods to  move our bugs around */
-	
-	/** 
+
+	/* Helper methods to move our bugs around */
+
+	/**
 	 * Wraps the Critter back on the world when a x directional edge is reached
+	 * 
 	 * @param x
-	 * 	New x coord
-	 * @return
-	 * 	Wrapped x coord or just x if edge is not reacched
+	 *            New x coord
+	 * @return Wrapped x coord or just x if edge is not reacched
 	 */
 	private static int wrapX(int x) {
-        if (x < 0) { return Params.world_width - 1; }
-        else if (x == Params.world_width) { return 0; }
-        else { return x; }
+		if (x < 0) {
+			return Params.world_width - 1;
+		} else if (x == Params.world_width) {
+			return 0;
+		} else {
+			return x;
+		}
 	}
-	
-	/** 
+
+	/**
 	 * Wraps the Critter back on the world when a y directional edge is reached
+	 * 
 	 * @param y
-	 * 	New y coord
-	 * @return
-	 * 	Wrapped y coord or just y if edge is not reached
+	 *            New y coord
+	 * @return Wrapped y coord or just y if edge is not reached
 	 */
 	private static int wrapY(int y) {
-        if (y < 0) { return Params.world_width - 1; }
-        else if (y == Params.world_width) { return 0; }
-        else { return y; }
+		if (y < 0) {
+			return Params.world_width - 1;
+		} else if (y == Params.world_width) {
+			return 0;
+		} else {
+			return y;
+		}
 	}
-	
+
 	/**
 	 * Sets the new (x, y) for the Critter
+	 * 
 	 * @param dist
-	 * 	How far to move (e.g. 1 for walk, 2 for  run 
+	 *            How far to move (e.g. 1 for walk, 2 for run
 	 * @param dir
-	 * 	The direction to move in
+	 *            The direction to move in
 	 */
 	private void newDir(int dist, int dir) {
-        switch (dir) {
-        	/* Move directly North */	
-        	case 0:
-        		this.y_coord = wrapY(this.y_coord +dist);
-        		break;
-        	/* Moves in the Northeast direction */
-        	case 1:
-        		this.x_coord = wrapX(this.x_coord + dist);
-        		this.y_coord = wrapY(this.y_coord +dist);
-        		break;
-        	/* Moves directlly to the East */
-        	case 2:
-        		this.x_coord = wrapX(this.x_coord + dist);
-        		break;
-        	/* Moves in the Southeast direction */
-        	case 3:
-        		this.x_coord = wrapX(this.x_coord + dist);
-        		this.y_coord = wrapY(this.y_coord - dist);
-        		break;
-        	/* Moves directly to the South */
-        	case 4:
-        		this.y_coord = wrapY(this.y_coord - dist);
-        		break;
-        	/* Moves in the Southwest direction */
-        	case 5:
-        		this.x_coord = wrapX(this.x_coord - dist);
-        		this.y_coord = wrapY(this.y_coord - dist);
-        		break;
-        	/* Moves directly to the West */
-        	case 6:
-        		this.x_coord = wrapX(this.x_coord -dist);
-        		break;
-        	/* Moves in the Northwest direction */
-        	case 7:
-        		this.x_coord = wrapX(this.x_coord - dist);
-        		this.y_coord = wrapY(this.y_coord + dist);
-        		break;
-        }
+		switch (dir) {
+		/* Move directly North */
+		case 0:
+			this.y_coord = wrapY(this.y_coord + dist);
+			break;
+		/* Moves in the Northeast direction */
+		case 1:
+			this.x_coord = wrapX(this.x_coord + dist);
+			this.y_coord = wrapY(this.y_coord + dist);
+			break;
+		/* Moves directlly to the East */
+		case 2:
+			this.x_coord = wrapX(this.x_coord + dist);
+			break;
+		/* Moves in the Southeast direction */
+		case 3:
+			this.x_coord = wrapX(this.x_coord + dist);
+			this.y_coord = wrapY(this.y_coord - dist);
+			break;
+		/* Moves directly to the South */
+		case 4:
+			this.y_coord = wrapY(this.y_coord - dist);
+			break;
+		/* Moves in the Southwest direction */
+		case 5:
+			this.x_coord = wrapX(this.x_coord - dist);
+			this.y_coord = wrapY(this.y_coord - dist);
+			break;
+		/* Moves directly to the West */
+		case 6:
+			this.x_coord = wrapX(this.x_coord - dist);
+			break;
+		/* Moves in the Northwest direction */
+		case 7:
+			this.x_coord = wrapX(this.x_coord - dist);
+			this.y_coord = wrapY(this.y_coord + dist);
+			break;
+		}
 	}
 
-	
-	
-
-	private	static List<Critter> population = new java.util.ArrayList<Critter>();
+	private static List<Critter> population = new java.util.ArrayList<Critter>();
 	private static List<Critter> babies = new java.util.ArrayList<Critter>();
-	
-	
-	
+
+	private static void algaeSpawn() {
+		Critter[][] temp = CritterWorld.getWorld();
+		int spawnNum;
+		int coord_x;
+		int coord_y;
+		spawnNum = Critter.getRandomInt((Params.world_width * Params.world_height) / 1000) + 1;
+		for (int i = 0; i < spawnNum; i++) {
+			try {
+				makeCritter("Algae");
+			} catch (InvalidCritterException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			//temp[coord_x][coord_y] = new Algae();
+		}
+
+	}
+
 	public static void worldTimeStep() {
 		ArrayList<Critter> step = CritterWorld.getLiveCritters();
 		Iterator<Critter> itr = step.iterator();
 		Critter next;
-		
-		/* All critters executed their  timeStep method */
-		while(itr.hasNext()){
+
+		/* All critters executed their timeStep method */
+		while (itr.hasNext()) {
 			next = itr.next();
 			next.doTimeStep();
 		}
-		
-		placeCritters();
-		
-		
-	}
-	
 
-	
-	
+		placeCritters();
+		algaeSpawn();
+
+	}
+
 	/**
-	 * Places critters onto the coordinate plane for displaying 
+	 * Places critters onto the coordinate plane for displaying
 	 */
-	
-	private static void placeCritters(){
+
+	private static void placeCritters() {
 		ArrayList<Critter> temp = CritterWorld.getLiveCritters();
 		Critter[][] displayGrid = CritterWorld.getWorld();
-		for(int i = 0; i < temp.size(); i+= 1){
-			if(displayGrid[temp.get(i).x_coord][temp.get(i).y_coord] != null){
+		for (int i = 0; i < temp.size(); i += 1) {
+			if (displayGrid[temp.get(i).x_coord][temp.get(i).y_coord] != null) {
 				displayGrid[temp.get(i).x_coord][temp.get(i).y_coord].fight(temp.get(i).toString());
 			}
 			displayGrid[temp.get(i).x_coord][temp.get(i).y_coord] = temp.get(i);
 		}
-	
-		
+
 	}
-	
+
 	/**
 	 * Prints the border and the critter
 	 */
 	public static void displayWorld() {
-		for(int i = 0; i <  Params.world_width +2; i += 1){
+		for (int i = 0; i < Params.world_width + 2; i += 1) {
 			System.out.println("/");
 		}
 		placeCritters();
-		for(int i = 0; i < Params.world_width; i+= 1){
+		for (int i = 0; i < Params.world_width; i += 1) {
 			System.out.print("/");
-			for(int k = 0;  k < Params.world_height; k+=1){
+			for (int k = 0; k < Params.world_height; k += 1) {
 				System.out.print(CritterWorld.getWorld()[i][k]);
 			}
 			System.out.println("/");
 		}
-		
+
 	}
 }
