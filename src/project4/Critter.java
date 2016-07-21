@@ -295,10 +295,29 @@ public abstract class Critter {
 		LinkedList<Critter> temp = CritterWorld.getLiveCritters();
 		Critter[][] displayGrid = CritterWorld.getWorld();
 		for (int i = 0; i < temp.size(); i += 1) {
+			/* Conflict resolution */
 			if (displayGrid[temp.get(i).x_coord][temp.get(i).y_coord] != null) {
-				displayGrid[temp.get(i).x_coord][temp.get(i).y_coord].fight(temp.get(i).toString());
+				int originalRoll;
+				int newRoll;
+				
+				/* Determine whether the invader wants to fight or not */
+				if(displayGrid[temp.get(i).x_coord][temp.get(i).y_coord].fight(temp.get(i).toString())){
+					originalRoll = getRandomInt(displayGrid[temp.get(i).x_coord][temp.get(i).y_coord].energy);
+				}else{ originalRoll = 0;}
+				
+				/* Determines whether the original inhabitant will fight */
+				if(temp.get(i).fight(displayGrid[temp.get(i).x_coord][temp.get(i).y_coord].toString())){
+					newRoll = getRandomInt(temp.get(i).energy);
+				}else{ newRoll = 0; }
+				
+				/* Determine the winner */
+				if(originalRoll > newRoll){
+					displayGrid[temp.get(i).x_coord][temp.get(i).y_coord].energy += temp.get(i).energy/2;
+					temp.get(i).energy = 0;
+				}
+			}else {
+				displayGrid[temp.get(i).x_coord][temp.get(i).y_coord] = temp.get(i);
 			}
-			displayGrid[temp.get(i).x_coord][temp.get(i).y_coord] = temp.get(i);
 		}
 
 	}

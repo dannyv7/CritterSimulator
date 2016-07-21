@@ -4,6 +4,11 @@ public class Mia extends Critter{
 	public Mia(){
 		
 	}
+	@Override 
+	public String toString(){
+		return("M");
+	}
+	
 	@Override
 	public void doTimeStep() {
 		int dir = getRandomInt(3);
@@ -19,17 +24,17 @@ public class Mia extends Critter{
 
 	@Override
 	public boolean fight(String oponent) {
-		if (oponent.equals("Algae")) {
+		if (oponent.equals("@")) {
 			
-		} else if (oponent.equals("Craig")) {
+		} else if (oponent.equals("C")) {
 			
-		} else if (oponent.equals("Mia")) {
+		} else if (oponent.equals("M")) {
 			
-		} else if (oponent.equals("Lexi")) {
+		} else if (oponent.equals("L")) {
 			
-		} else if (oponent.equals("Asa")) {
+		} else if (oponent.equals("A")) {
 			
-		} else if (oponent.equals("Kennedy")) {
+		} else if (oponent.equals("K")) {
 			
 		} 
 		return false;
