@@ -11,160 +11,132 @@
  * Summer 2016
  */
 package project4;
+
 import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
-	
 
-	
 	public static void main(String[] args) throws InvalidCritterException {
 		Scanner se = new Scanner(System.in);
 		String s;
 		int cnt = 0;
-		
-		while(true){
-			
+
+		while (true) {
+
 			s = se.nextLine();
-            if(s.contains("show")) {
-            	if(s.length() > 4){
-            		System.out.println("Error processing: " + s);
-            	}else{
-            	Critter.displayWorld();
-            	}
-            } else if(s.equals("quit")) {
-                System.exit(0);
-            } else if(s.contains("step")) {
-            	if(s.length() > 4){
-            		try{
-            	cnt = Integer.parseInt(s.substring(5));
-            		}catch(Exception o){
-            			System.out.println("Error processing: " + s);
-            	}
-            	for(int i = 0; i <= cnt; i++){
-            		Critter.worldTimeStep();
-            	}
-            	}else{
-            		Critter.worldTimeStep();
-            	}
-            	
-            } else if(s.contains("stats")){
-            	Critter.runStats(CritterWorld.getLiveCritters());
-            	//sSystem.out.println(Critter.getInstances(s.substring(6)));
-            } else if(s.contains("make")){
-            	if(s.contains("Craig")){
-            		cnt = s.indexOf("Craig")+6;
-            		try{
-            		cnt = Integer.parseInt(s.substring(cnt));
-            		}catch(Exception o){
-            			System.out.println("Error processing: " + s);
-            		}
-            		for(int i = 0; i < cnt; i+=1){
-            			Critter.makeCritter("Craig");
-            		}
-            	}
-            	
-            	else if(s.contains("Lexi")){
-            		cnt = s.indexOf("Lexi")+5;
-            		try{
-            		cnt = Integer.parseInt(s.substring(cnt));
-            		}catch(Exception o){
-            			System.out.println("Error processing: " + s);
-            		}
-            		for(int i = 0; i < cnt; i+=1){
-            			Critter.makeCritter("Lexi");
-            		}
-            	}
-            	else if(s.contains("Mia")){
-            		cnt = s.indexOf("Mia")+4;
-            		try{
-            		cnt = Integer.parseInt(s.substring(cnt));
-            		}catch(Exception o){
-            			System.out.println("Error processing: " + s);
-            		}
-            		for(int i = 0; i < cnt; i+=1){
-            			Critter.makeCritter("Mia");
-            		}
-            		
-            	}
-            	
-            	else if(s.contains("Asa")){
-            		cnt = s.indexOf("Asa")+4;
-            		try{
-            		cnt = Integer.parseInt(s.substring(cnt));
-            		}catch(Exception o){
-            			System.out.println("Error processing: " + s);
-            		}
-            		for(int i = 0; i < cnt; i+=1){
-            			Critter.makeCritter("Asa");
-            		}
-            	}
-            	
-            	
-            	else if(s.contains("Kennedy")){
-            		cnt = s.indexOf("Kennedy")+8;
-            		try{
-            		cnt = Integer.parseInt(s.substring(cnt));
-            		}catch(Exception o){
-            			System.out.println("Error processing: " + s);
-            		}
-            		for(int i = 0; i < cnt; i+=1){
-            			Critter.makeCritter("Kennedy");
-            		}
-            	}
-            	
-            	else if(s.contains("Algae")){
-            		cnt = s.indexOf("Algae")+6;
-            		try{
-            		cnt = Integer.parseInt(s.substring(cnt));
-            		}catch(Exception o){
-            			System.out.println("Error processing: " + s);
-            		}
-            		for(int i = 0; i < cnt; i+=1){
-            			Critter.makeCritter("Algae");
-            		}
-            } else{
-            	System.out.println("Error processing: " + s);
-            }
-            
-        
-	}		else if(s.contains("seed")){
-			try{
-			cnt = Integer.parseInt(s.substring(5));
-			}catch(Exception o){
+			if (s.equals("show")) {
+					Critter.displayWorld();
+				
+			} else if (s.equals("quit")) {
+				System.exit(0);
+			} else if (s.contains("step")) {
+				if(s.equals("step")){
+					Critter.worldTimeStep();
+				}
+				else {
+					try {
+						cnt = Integer.parseInt(s.substring(5));
+						for (int i = 0; i <= cnt; i++) {
+							Critter.worldTimeStep();
+						}
+					} catch (Exception o) {
+						System.out.println("Error processing: " + s);
+					
+					}
+					
+
+				}
+
+			} else if (s.contains("stats")) {
+				Critter.runStats(CritterWorld.getLiveCritters());
+				// sSystem.out.println(Critter.getInstances(s.substring(6)));
+			} else if (s.contains("make")) {
+				if (s.contains("Craig")) {
+					cnt = s.indexOf("Craig") + 6;
+					try {
+						cnt = Integer.parseInt(s.substring(cnt));
+					} catch (Exception o) {
+						System.out.println("Error processing: " + s);
+					}
+					for (int i = 0; i < cnt; i += 1) {
+						Critter.makeCritter("Craig");
+					}
+				}
+
+				else if (s.contains("Lexi")) {
+					cnt = s.indexOf("Lexi") + 5;
+					try {
+						cnt = Integer.parseInt(s.substring(cnt));
+					} catch (Exception o) {
+						System.out.println("Error processing: " + s);
+					}
+					for (int i = 0; i < cnt; i += 1) {
+						Critter.makeCritter("Lexi");
+					}
+				} else if (s.contains("Mia")) {
+					cnt = s.indexOf("Mia") + 4;
+					try {
+						cnt = Integer.parseInt(s.substring(cnt));
+					} catch (Exception o) {
+						System.out.println("Error processing: " + s);
+					}
+					for (int i = 0; i < cnt; i += 1) {
+						Critter.makeCritter("Mia");
+					}
+
+				}
+
+				else if (s.contains("Asa")) {
+					cnt = s.indexOf("Asa") + 4;
+					try {
+						cnt = Integer.parseInt(s.substring(cnt));
+					} catch (Exception o) {
+						System.out.println("Error processing: " + s);
+					}
+					for (int i = 0; i < cnt; i += 1) {
+						Critter.makeCritter("Asa");
+					}
+				}
+
+				else if (s.contains("Kennedy")) {
+					cnt = s.indexOf("Kennedy") + 8;
+					try {
+						cnt = Integer.parseInt(s.substring(cnt));
+					} catch (Exception o) {
+						System.out.println("Error processing: " + s);
+					}
+					for (int i = 0; i < cnt; i += 1) {
+						Critter.makeCritter("Kennedy");
+					}
+				}
+
+				else if (s.contains("Algae")) {
+					cnt = s.indexOf("Algae") + 6;
+					try {
+						cnt = Integer.parseInt(s.substring(cnt));
+					} catch (Exception o) {
+						System.out.println("Error processing: " + s);
+					}
+					for (int i = 0; i < cnt; i += 1) {
+						Critter.makeCritter("Algae");
+					}
+				} else {
+					System.out.println("Error processing: " + s);
+				}
+
+			} else if (s.contains("seed")) {
+				try {
+					cnt = Integer.parseInt(s.substring(5));
+				} catch (Exception o) {
+					System.out.println("Error processing: " + s);
+				}
+				Critter.setSeed(cnt);
+			} else {
 				System.out.println("Error processing: " + s);
 			}
-			Critter.setSeed(cnt);
-	}else{
-		System.out.println("Error processing: " + s);
+
+		}
+
 	}
-            
-	}
-		/*System.out.println("GLHF");
-		Critter.displayWorld();
-		Critter.worldTimeStep();
-		Critter.runStats(CritterWorld.getLiveCritters());
-		for(int i = 0; i <25; i+=1){
-			Critter.makeCritter("Craig");
-		}
-		for(int i = 0; i < 100; i+= 1){
-			Critter.makeCritter("Mia");
-		}
-		for(int i = 0; i < 100; i+= 1){
-			Critter.makeCritter("Kennedy");
-		}
-		for(int i = 0; i < 100; i+= 1){
-			Critter.makeCritter("Lexi");
-		}
-		for(int i = 0; i < 100; i+= 1){
-			Critter.makeCritter("Asa");
-		}
-		for(int i = 0; i < 15; i+= 1){
-			Critter.displayWorld();
-			Critter.worldTimeStep();
-			Critter.runStats(CritterWorld.getLiveCritters());
-		}
-		
-	}st*/
-}
 }

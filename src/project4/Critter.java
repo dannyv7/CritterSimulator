@@ -424,11 +424,43 @@ public abstract class Critter {
 		}
 
 	}
+	
+	private static void placeCrittersPacifist(){
+		int x = 0;
+		int y = 0;
+		ArrayList<Critter> temp = new ArrayList<Critter>(0);
+		LinkedList<Critter> step = CritterWorld.getLiveCritters();
+		Iterator<Critter> itr = step.iterator();
+		Critter next;
+
+		/* All critters executed their timeStep method */
+		while (itr.hasNext()) {
+			next = itr.next();
+			temp.add(next);
+		}
+		
+		/* Resets our frame */
+		CritterWorld.resetWorld();
+		Critter[][] displayGrid = CritterWorld.getWorld();
+		for (int i = 0; i < temp.size(); i += 1) {
+			if(temp.get(i).energy <= 0){}
+			else {	//Empty slot, just place the Critter
+				if(temp.get(i) instanceof Algae){
+					if(displayGrid[temp.get(i).x_coord][temp.get(i).y_coord] == null){
+						displayGrid[temp.get(i).x_coord][temp.get(i).y_coord] = temp.get(i);
+					}
+				}else{
+					displayGrid[temp.get(i).x_coord][temp.get(i).y_coord] = temp.get(i);
+				}
+			}
+		}
+	}
 
 	/**
 	 * Prints the border and the critter
 	 */
 	public static void displayWorld() {
+		placeCrittersPacifist();
 		/* Creates the top border */
 		System.out.print("|");
 		for(int i = 0; i < Params.world_width; i += 1){
