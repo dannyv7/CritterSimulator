@@ -26,13 +26,21 @@ public class Main {
 		while(true){
 			
 			s = se.nextLine();
-            if(s.equals("show")) {
+            if(s.contains("show")) {
+            	if(s.length() > 4){
+            		System.out.println("Error processing: " + s);
+            	}else{
             	Critter.displayWorld();
+            	}
             } else if(s.equals("quit")) {
                 System.exit(0);
             } else if(s.contains("step")) {
             	if(s.length() > 4){
+            		try{
             	cnt = Integer.parseInt(s.substring(5));
+            		}catch(Exception o){
+            			System.out.println("Error processing: " + s);
+            	}
             	for(int i = 0; i <= cnt; i++){
             		Critter.worldTimeStep();
             	}
@@ -41,63 +49,94 @@ public class Main {
             	}
             	
             } else if(s.contains("stats")){
-            	//System.out.println(s.substring(6));
             	Critter.runStats(CritterWorld.getLiveCritters());
-            	//System.out.println(Critter.getInstances(s.substring(6)));
+            	//sSystem.out.println(Critter.getInstances(s.substring(6)));
             } else if(s.contains("make")){
             	if(s.contains("Craig")){
             		cnt = s.indexOf("Craig")+6;
+            		try{
             		cnt = Integer.parseInt(s.substring(cnt));
-            		for(int i = 0; i <= cnt; i+=1){
+            		}catch(Exception o){
+            			System.out.println("Error processing: " + s);
+            		}
+            		for(int i = 0; i < cnt; i+=1){
             			Critter.makeCritter("Craig");
             		}
             	}
             	
-            	if(s.contains("Lexi")){
+            	else if(s.contains("Lexi")){
             		cnt = s.indexOf("Lexi")+5;
+            		try{
             		cnt = Integer.parseInt(s.substring(cnt));
-            		for(int i = 0; i <= cnt; i+=1){
+            		}catch(Exception o){
+            			System.out.println("Error processing: " + s);
+            		}
+            		for(int i = 0; i < cnt; i+=1){
             			Critter.makeCritter("Lexi");
             		}
             	}
-            	if(s.contains("Mia")){
+            	else if(s.contains("Mia")){
             		cnt = s.indexOf("Mia")+4;
+            		try{
             		cnt = Integer.parseInt(s.substring(cnt));
-            		for(int i = 0; i <= cnt; i+=1){
+            		}catch(Exception o){
+            			System.out.println("Error processing: " + s);
+            		}
+            		for(int i = 0; i < cnt; i+=1){
             			Critter.makeCritter("Mia");
             		}
             		
             	}
             	
-            	if(s.contains("Asa")){
+            	else if(s.contains("Asa")){
             		cnt = s.indexOf("Asa")+4;
+            		try{
             		cnt = Integer.parseInt(s.substring(cnt));
-            		for(int i = 0; i <= cnt; i+=1){
+            		}catch(Exception o){
+            			System.out.println("Error processing: " + s);
+            		}
+            		for(int i = 0; i < cnt; i+=1){
             			Critter.makeCritter("Asa");
             		}
             	}
             	
             	
-            	if(s.contains("Kennedy")){
+            	else if(s.contains("Kennedy")){
             		cnt = s.indexOf("Kennedy")+8;
+            		try{
             		cnt = Integer.parseInt(s.substring(cnt));
-            		for(int i = 0; i <= cnt; i+=1){
+            		}catch(Exception o){
+            			System.out.println("Error processing: " + s);
+            		}
+            		for(int i = 0; i < cnt; i+=1){
             			Critter.makeCritter("Kennedy");
             		}
             	}
             	
-            	if(s.contains("Algae")){
+            	else if(s.contains("Algae")){
             		cnt = s.indexOf("Algae")+6;
+            		try{
             		cnt = Integer.parseInt(s.substring(cnt));
-            		for(int i = 0; i <= cnt; i+=1){
+            		}catch(Exception o){
+            			System.out.println("Error processing: " + s);
+            		}
+            		for(int i = 0; i < cnt; i+=1){
             			Critter.makeCritter("Algae");
             		}
+            } else{
+            	System.out.println("Error processing: " + s);
             }
             
         
 	}		else if(s.contains("seed")){
+			try{
 			cnt = Integer.parseInt(s.substring(5));
+			}catch(Exception o){
+				System.out.println("Error processing: " + s);
+			}
 			Critter.setSeed(cnt);
+	}else{
+		System.out.println("Error processing: " + s);
 	}
             
 	}
