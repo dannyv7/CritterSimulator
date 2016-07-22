@@ -131,7 +131,16 @@ public abstract class Critter {
 
 	public static List<Critter> getInstances(String critter_class_name) throws InvalidCritterException {
 		List<Critter> result = new java.util.ArrayList<Critter>();
-
+		LinkedList<Critter> check = CritterWorld.getLiveCritters();
+		Iterator<Critter> itr = check.iterator();
+		Critter next;
+		
+		while(itr.hasNext()){
+			next = itr.next();
+			if(next.toString().equals(critter_class_name)){
+				result.add(next);
+			}
+		}
 		return result;
 	}
 
