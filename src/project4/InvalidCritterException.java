@@ -1,3 +1,16 @@
+/* CRITTERS InvalidCritterException.java
+ * EE422C Project 4 submission by
+ * Replace <...> with your actual data.
+ * Danny Vo
+ * dpv292
+ * 76550
+ * Zain Modi
+ * zam374
+ * 76550
+ * Slip days used: 1
+ * Summer 2016
+ */
+
 package project4;
 
 public class InvalidCritterException extends Exception {
