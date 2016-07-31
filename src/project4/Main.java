@@ -16,10 +16,17 @@ package project4;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class Main {
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
-	public static void main(String[] args) throws InvalidCritterException {
-		Scanner se = new Scanner(System.in);
+public class Main extends Application {
+
+	public static void main(String[] args)  throws InvalidCritterException {
+		launch(args);
+		/*Scanner se = new Scanner(System.in);
 		String s;
 		int cnt = 0;
 
@@ -137,7 +144,21 @@ public class Main {
 				System.out.println("Error processing: " + s);
 			}
 
-		}
+		}*/
 
 	}
+
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+		// TODO Auto-generated method stub
+		Parent root = FXMLLoader.load(getClass().getResource("CritterGUI.fxml"));
+		Scene  scene= new Scene(root, 1280, 720);
+		
+		primaryStage.setResizable(false);
+		primaryStage.setScene(scene);
+		primaryStage.show();
+		
+	}
+	
+
 }
