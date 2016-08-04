@@ -28,6 +28,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class Controller  implements Initializable{
@@ -64,6 +65,9 @@ public class Controller  implements Initializable{
 	@FXML
 	private Button endButton;
 	
+	@FXML
+	private Text statd;
+	
 	public void setGrid(){
 	}
 	@Override
@@ -83,6 +87,7 @@ public class Controller  implements Initializable{
 				"Mia"
 				);
 		
+
 		
 
 	}
@@ -123,7 +128,8 @@ public class Controller  implements Initializable{
 	}
 	
 	public void displayStats(ActionEvent event){
-		Critter.runStats(CritterWorld.getLiveCritters());
+		//Critter.runStats(CritterWorld.getLiveCritters());
+		statd.setText("Hello");
 	}
 	
 	public void endSimulation(ActionEvent event){
