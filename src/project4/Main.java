@@ -152,9 +152,10 @@ public class Main extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		// TODO Auto-generated method stub
 		Parent root = FXMLLoader.load(getClass().getResource("CritterGUI.fxml"));
-		Scene  scene= new Scene(root, 1280, 720);
+		Scene  scene= new Scene(root, 1920, 1080);
 		
-		primaryStage.setResizable(false);
+		primaryStage.setTitle("CritterSimulator");
+		primaryStage.setResizable(true);
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		
