@@ -29,6 +29,11 @@ public class Asa extends Critter{
 		return("A");
 	}
 
+	
+	public CritterShape viewShape(){
+		return CritterShape.CIRCLE;
+	}
+
 	@Override
 	public void doTimeStep() {
 		this.setMoved(false);

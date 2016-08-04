@@ -31,7 +31,9 @@ public class Mia extends Critter{
 	public String toString(){
 		return("M");
 	}
-	
+	public CritterShape viewShape(){
+		return CritterShape.RECTANGLE;
+	}
 	@Override
 	public void doTimeStep() {
 		this.setMoved(false);

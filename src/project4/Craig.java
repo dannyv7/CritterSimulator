@@ -31,6 +31,10 @@ public class Craig extends Critter {
 	
 	public boolean fight(String not_used) { return true; }
 
+	
+	public CritterShape viewShape(){
+		return CritterShape.SQUARE;
+	}
 	@Override
 	public void doTimeStep() {
 		/* take one step forward */

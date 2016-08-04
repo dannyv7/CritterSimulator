@@ -27,7 +27,9 @@ public class Kennedy extends Critter{
 	public String toString(){
 		return("K");
 	}
-
+	public CritterShape viewShape(){
+		return CritterShape.DIAMOND;
+	}
 	@Override
 	public void doTimeStep() {
 		this.setMoved(false);
