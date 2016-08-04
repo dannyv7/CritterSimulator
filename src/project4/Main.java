@@ -13,153 +13,101 @@
 
 package project4;
 
+import java.awt.Insets;
 import java.io.IOException;
 import java.util.Scanner;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.HPos;
+import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
 
 public class Main extends Application {
-
+	private static Tile[][] realWorld= new Tile[Params.world_width][Params.world_height];
+	private static GridPane gp = null;
+	private static Stage world = new Stage();
 	public static void main(String[] args)  throws InvalidCritterException {
 		launch(args);
-		/*Scanner se = new Scanner(System.in);
-		String s;
-		int cnt = 0;
-
-		while (true) {
-
-			s = se.nextLine();
-			if (s.equals("show")) {
-					Critter.displayWorld();
-				
-			} else if (s.equals("quit")) {
-				System.exit(0);
-			} else if (s.contains("step")) {
-				if(s.equals("step")){
-					Critter.worldTimeStep();
-				}
-				else {
-					try {
-						cnt = Integer.parseInt(s.substring(5));
-						for (int i = 0; i <= cnt; i++) {
-							Critter.worldTimeStep();
-						}
-					} catch (Exception o) {
-						System.out.println("Error processing: " + s);
-					
-					}
-					
-
-				}
-
-			} else if (s.contains("stats")) {
-				Critter.runStats(CritterWorld.getLiveCritters());
-				// sSystem.out.println(Critter.getInstances(s.substring(6)));
-			} else if (s.contains("make")) {
-				if (s.contains("Craig")) {
-					cnt = s.indexOf("Craig") + 6;
-					try {
-						cnt = Integer.parseInt(s.substring(cnt));
-					} catch (Exception o) {
-						System.out.println("Error processing: " + s);
-					}
-					for (int i = 0; i < cnt; i += 1) {
-						Critter.makeCritter("Craig");
-					}
-				}
-
-				else if (s.contains("Lexi")) {
-					cnt = s.indexOf("Lexi") + 5;
-					try {
-						cnt = Integer.parseInt(s.substring(cnt));
-					} catch (Exception o) {
-						System.out.println("Error processing: " + s);
-					}
-					for (int i = 0; i < cnt; i += 1) {
-						Critter.makeCritter("Lexi");
-					}
-				} else if (s.contains("Mia")) {
-					cnt = s.indexOf("Mia") + 4;
-					try {
-						cnt = Integer.parseInt(s.substring(cnt));
-					} catch (Exception o) {
-						System.out.println("Error processing: " + s);
-					}
-					for (int i = 0; i < cnt; i += 1) {
-						Critter.makeCritter("Mia");
-					}
-
-				}
-
-				else if (s.contains("Asa")) {
-					cnt = s.indexOf("Asa") + 4;
-					try {
-						cnt = Integer.parseInt(s.substring(cnt));
-					} catch (Exception o) {
-						System.out.println("Error processing: " + s);
-					}
-					for (int i = 0; i < cnt; i += 1) {
-						Critter.makeCritter("Asa");
-					}
-				}
-
-				else if (s.contains("Kennedy")) {
-					cnt = s.indexOf("Kennedy") + 8;
-					try {
-						cnt = Integer.parseInt(s.substring(cnt));
-					} catch (Exception o) {
-						System.out.println("Error processing: " + s);
-					}
-					for (int i = 0; i < cnt; i += 1) {
-						Critter.makeCritter("Kennedy");
-					}
-				}
-
-				else if (s.contains("Algae")) {
-					cnt = s.indexOf("Algae") + 6;
-					try {
-						cnt = Integer.parseInt(s.substring(cnt));
-					} catch (Exception o) {
-						System.out.println("Error processing: " + s);
-					}
-					for (int i = 0; i < cnt; i += 1) {
-						Critter.makeCritter("Algae");
-					}
-				} else {
-					System.out.println("Error processing: " + s);
-				}
-
-			} else if (s.contains("seed")) {
-				try {
-					cnt = Integer.parseInt(s.substring(5));
-				} catch (Exception o) {
-					System.out.println("Error processing: " + s);
-				}
-				Critter.setSeed(cnt);
-			} else {
-				System.out.println("Error processing: " + s);
-			}
-
-		}*/
-
+		test();
 	}
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// TODO Auto-generated method stub
 		Parent root = FXMLLoader.load(getClass().getResource("CritterGUI.fxml"));
-		Scene  scene= new Scene(root, 1920, 1080);
+		Scene  scene= new Scene(root, 270, 1080);
 		
-		primaryStage.setTitle("CritterSimulator");
+		primaryStage.setTitle("CritterController");
 		primaryStage.setResizable(true);
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		
+		gp = actualizeWorld();
+		Scene scene2 = new Scene(gp);
+		world.setTitle("CritterSimulator");
+		world.setScene(scene2);
+		world.show();
 	}
 	
+	public GridPane actualizeWorld(){
+		GridPane gpane = new GridPane();
 
+		for (int i = 0; i < Params.world_height; i += 1) {
+			RowConstraints r = new RowConstraints();
+			r.setPercentHeight(100 / Params.world_height);
+			r.setValignment(VPos.CENTER);
+			gpane.getRowConstraints().add(r);
+		}
+
+		for (int i = 0; i < Params.world_width; i += 1) {
+			ColumnConstraints c = new ColumnConstraints();
+			c.setPercentWidth(100 / Params.world_width);
+			c.setHalignment(HPos.CENTER);
+			gpane.getColumnConstraints().add(c);
+		}
+
+		gpane.setVgap(5);
+		gpane.setHgap(5);
+		gpane.setGridLinesVisible(false);
+		gpane.setAlignment(Pos.CENTER);
+
+		for (int i = 0; i < Params.world_width; i += 1) {
+			for (int k = 0; k < Params.world_height; k += 1) {
+				realWorld[i][k] = new Tile();
+				gpane.add(realWorld[i][k], i, k);
+			}
+		}
+//		Scene scene = new Scene(gpane, 1650, 1080);
+//		world.setTitle("CritterSimulator");
+//		world.setScene(scene);
+//		world.show();
+		return gpane;
+	}
+
+	public static void test(){
+		gp = new GridPane();
+		for (int i = 0; i < Params.world_width; i += 1) {
+			for (int k = 0; k < Params.world_height; k += 1) {
+				realWorld[i][k] = new Tile(new Circle());
+				gp.add(realWorld[i][k], i, k);
+			}
+		}
+		Scene scene = new Scene(gp);
+		world.close();
+		world.setScene(scene);
+		world.show();
+	}
 }
