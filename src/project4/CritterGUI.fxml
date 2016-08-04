@@ -9,15 +9,15 @@
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="822.0" prefWidth="337.0">
          <children>
             <ComboBox fx:id="cbox" layoutX="87.0" layoutY="138.0" prefWidth="150.0" promptText="Select Critter" />
-            <Button layoutX="111.0" layoutY="166.0" mnemonicParsing="false" text="Make Critter(s)" />
-            <Button layoutX="96.0" layoutY="258.0" mnemonicParsing="false" text="Execute Timestep(s)" />
-            <TextField layoutX="76.0" layoutY="230.0" promptText="Enter number of Timesteps" />
+            <Button fx:id="makeButton" layoutX="111.0" layoutY="166.0" mnemonicParsing="false" onAction="#makeCritter" text="Make Critter(s)" />
+            <Button fx:id="stepButton" layoutX="96.0" layoutY="258.0" mnemonicParsing="false" onAction="#executeTimeSteps" text="Execute Timestep(s)" />
+            <TextField fx:id="numSteps" layoutX="76.0" layoutY="230.0" promptText="Enter number of Timesteps" />
             <TextField layoutX="76.0" layoutY="339.0" promptText="Enter seed value" />
             <Button layoutX="139.0" layoutY="367.0" mnemonicParsing="false" text="Seed" />
-            <Button layoutX="112.0" layoutY="441.0" mnemonicParsing="false" text="Display World" />
-            <Button layoutX="104.0" layoutY="512.0" mnemonicParsing="false" text="Display Statistics" />
-            <Button layoutX="111.0" layoutY="585.0" mnemonicParsing="false" text="Exit Simulation" />
-            <TextField layoutX="76.0" layoutY="110.0" promptText="Number of Critters to make" />
+            <Button fx:id="showButton" layoutX="112.0" layoutY="441.0" mnemonicParsing="false" onAction="#displayWorld" text="Display World" />
+            <Button fx:id="statsButton" layoutX="104.0" layoutY="512.0" mnemonicParsing="false" onAction="#displayStats" text="Display Statistics" />
+            <Button fx:id="endButton" layoutX="111.0" layoutY="585.0" mnemonicParsing="false" onAction="#endSimulation" text="Exit Simulation" />
+            <TextField fx:id="numCritters" layoutX="76.0" layoutY="110.0" promptText="Number of Critters to make" />
          </children></AnchorPane>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="720.0" prefWidth="1280.0">
          <children>
