@@ -35,6 +35,13 @@ public class Craig extends Critter {
 	public CritterShape viewShape(){
 		return CritterShape.SQUARE;
 	}
+	
+	public Color viewFillColor(){
+		return Color.BLACK;
+	}
+	public Color viewOutlineColor(){
+		return Color.BLUE;
+	}
 	@Override
 	public void doTimeStep() {
 		/* take one step forward */

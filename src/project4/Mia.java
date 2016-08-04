@@ -34,6 +34,14 @@ public class Mia extends Critter{
 	public CritterShape viewShape(){
 		return CritterShape.RECTANGLE;
 	}
+	
+	public Color viewFillColor(){
+		return Color.RED;
+	}
+	public Color viewOutlineColor(){
+		return Color.GREEN;
+	}
+	
 	@Override
 	public void doTimeStep() {
 		this.setMoved(false);

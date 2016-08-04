@@ -30,6 +30,14 @@ public class Kennedy extends Critter{
 	public CritterShape viewShape(){
 		return CritterShape.DIAMOND;
 	}
+	
+	public Color viewFillColor(){
+		return Color.BROWN;	
+	}
+	
+	public Color viewOutlineColor(){
+		return Color.PINK;
+	}
 	@Override
 	public void doTimeStep() {
 		this.setMoved(false);
