@@ -32,6 +32,7 @@ public class Asa extends Critter{
 	@Override
 	public void doTimeStep() {
 		this.setMoved(false);
+		this.look(getRandomInt(8));
 		int dir = directionalPref[getRandomInt(15)];
 		int behavior = getRandomInt(5);
 		if(behavioralPref[behavior] == 0){}

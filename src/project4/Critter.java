@@ -83,6 +83,144 @@ public abstract class Critter {
 		if (this.energy < 0){ this.energy = 0; }
 	}
 
+	protected String look(int direction){
+		int dist = 1;
+		this.energy = this.energy - Params.look_energy_cost;
+		Critter[][] displayGrid = CritterWorld.getWorld();
+		switch (direction) {
+		/* Move directly North */
+		case 0:
+			if(displayGrid[this.x_coord][wrapY(this.y_coord + dist)] == null){
+				return null;
+			}else{
+				return displayGrid[this.x_coord][wrapY(this.y_coord + dist)].toString();
+			}
+			
+		/* Moves in the Northeast direction */
+		case 1:
+			if(displayGrid[wrapX(this.x_coord + dist)][wrapY(this.y_coord + dist)] == null){
+				return null;
+			}else{
+				return displayGrid[wrapX(this.x_coord + dist)][wrapY(this.y_coord + dist)].toString();
+			}
+		/* Moves directly to the East */
+		case 2:
+			if(displayGrid[wrapX(this.x_coord + dist)][this.y_coord] == null){
+				return null;
+			}else{
+				return displayGrid[wrapX(this.x_coord + dist)][this.y_coord].toString();
+			}
+		/* Moves in the Southeast direction */
+		case 3:
+			if(displayGrid[wrapX(this.x_coord + dist)][wrapY(this.y_coord - dist)] == null){
+				return null;
+			}else{
+				return displayGrid[wrapX(this.x_coord + dist)][wrapY(this.y_coord - dist)].toString();
+			}
+		/* Moves directly to the South */
+		case 4:
+			if(displayGrid[this.x_coord][wrapY(this.y_coord - dist)] == null){
+				return null;
+			}else{
+				return displayGrid[this.x_coord][wrapY(this.y_coord - dist)].toString();
+			}
+		/* Moves in the Southwest direction */
+		case 5:
+			if(displayGrid[wrapX(this.x_coord - dist)][wrapY(this.y_coord - dist)] == null){
+				return null;
+			}else{
+				return displayGrid[wrapX(this.x_coord - dist)][wrapY(this.y_coord - dist)].toString();
+			}
+		/* Moves directly to the West */
+		case 6:
+			this.x_coord = wrapX(this.x_coord - dist);
+			if(displayGrid[wrapX(this.x_coord - dist)][this.y_coord] == null){
+				return null;
+			}else{
+				return displayGrid[wrapX(this.x_coord - dist)][this.y_coord].toString();
+			}
+		/* Moves in the Northwest direction */
+		case 7:
+			if(displayGrid[wrapX(this.x_coord - dist)][wrapY(this.y_coord + dist)] == null){
+				return null;
+			}else{
+				return displayGrid[wrapX(this.x_coord - dist)][wrapY(this.y_coord + dist)].toString();
+			}
+		}
+		
+		return null;
+	}
+	
+	protected String look2(int direction){
+		int dist = 2;
+		this.energy = this.energy - 2 * Params.look_energy_cost;
+		Critter[][] displayGrid = CritterWorld.getWorld();
+		switch (direction) {
+		/* Move directly North */
+		case 0:
+			if(displayGrid[this.x_coord][wrapY(this.y_coord + dist)] == null){
+				return null;
+			}else{
+				return displayGrid[this.x_coord][wrapY(this.y_coord + dist)].toString();
+			}
+			
+		/* Moves in the Northeast direction */
+		case 1:
+			if(displayGrid[wrapX(this.x_coord + dist)][wrapY(this.y_coord + dist)] == null){
+				return null;
+			}else{
+				return displayGrid[wrapX(this.x_coord + dist)][wrapY(this.y_coord + dist)].toString();
+			}
+		/* Moves directly to the East */
+		case 2:
+			if(displayGrid[wrapX(this.x_coord + dist)][this.y_coord] == null){
+				return null;
+			}else{
+				return displayGrid[wrapX(this.x_coord + dist)][this.y_coord].toString();
+			}
+		/* Moves in the Southeast direction */
+		case 3:
+			if(displayGrid[wrapX(this.x_coord + dist)][wrapY(this.y_coord - dist)] == null){
+				return null;
+			}else{
+				return displayGrid[wrapX(this.x_coord + dist)][wrapY(this.y_coord - dist)].toString();
+			}
+		/* Moves directly to the South */
+		case 4:
+			if(displayGrid[this.x_coord][wrapY(this.y_coord - dist)] == null){
+				return null;
+			}else{
+				return displayGrid[this.x_coord][wrapY(this.y_coord - dist)].toString();
+			}
+		/* Moves in the Southwest direction */
+		case 5:
+			if(displayGrid[wrapX(this.x_coord - dist)][wrapY(this.y_coord - dist)] == null){
+				return null;
+			}else{
+				return displayGrid[wrapX(this.x_coord - dist)][wrapY(this.y_coord - dist)].toString();
+			}
+		/* Moves directly to the West */
+		case 6:
+			this.x_coord = wrapX(this.x_coord - dist);
+			if(displayGrid[wrapX(this.x_coord - dist)][this.y_coord] == null){
+				return null;
+			}else{
+				return displayGrid[wrapX(this.x_coord - dist)][this.y_coord].toString();
+			}
+		/* Moves in the Northwest direction */
+		case 7:
+			if(displayGrid[wrapX(this.x_coord - dist)][wrapY(this.y_coord + dist)] == null){
+				return null;
+			}else{
+				return displayGrid[wrapX(this.x_coord - dist)][wrapY(this.y_coord + dist)].toString();
+			}
+		}
+		
+		return null;
+	}
+	
+	
+	
 	protected final void run(int direction) {
 		this.energy -= Params.run_energy_cost;
 		if(!this.hasMoved){
