@@ -29,6 +29,17 @@ public class Lexi extends Critter{
 	public String toString(){
 		return("L");
 	}
+	
+	public CritterShape viewShape(){
+		return CritterShape.TRIANGLE;
+	}
+	
+	public Color viewFillColor(){
+		return Color.PINK;
+	}
+	public Color viewOutlineColor(){
+		return Color.RED;
+	}
 
 	@Override
 	public void doTimeStep() {

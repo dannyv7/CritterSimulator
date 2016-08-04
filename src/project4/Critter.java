@@ -23,6 +23,7 @@ import java.util.List;
  */
 public abstract class Critter {
 	private boolean hasMoved = false;
+	
 	public void setMoved(boolean b){
 		hasMoved = b;
 	}
@@ -594,6 +595,10 @@ public abstract class Critter {
 		}
 	}
 
+	
+		
+	
+	
 	/**
 	 * Prints the border and the critter
 	 */

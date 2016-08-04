@@ -29,6 +29,18 @@ public class Asa extends Critter{
 		return("A");
 	}
 
+	
+	public CritterShape viewShape(){
+		return CritterShape.CIRCLE;
+	}
+	
+	public Color viewFillColor(){
+		return Color.BLUE;
+	}
+	public Color viewOutlineColor(){
+		return Color.BROWN;
+	}
+
 	@Override
 	public void doTimeStep() {
 		this.setMoved(false);

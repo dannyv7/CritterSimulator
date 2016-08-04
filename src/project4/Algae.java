@@ -16,7 +16,17 @@ package project4;
 import project4.Critter.TestCritter;
 
 public class Algae extends TestCritter {
-
+	public CritterShape viewShape(){
+		return CritterShape.STAR;
+	}
+	
+	public Color viewFillColor(){
+		return Color.GREEN;
+	}
+	
+	public Color viewOutlineColor(){
+		return Color.BLACK;
+	}
 	public String toString() { return "@"; }
 	
 	public boolean fight(String not_used) { return false; }
