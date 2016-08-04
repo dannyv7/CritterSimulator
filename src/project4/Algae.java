@@ -14,13 +14,14 @@
 package project4;
 
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Shape;
 import project4.Critter.TestCritter;
 
 public class Algae extends TestCritter {
 	public Shape viewShape(){
-		return new Polygon(3);
+		return new Circle(2);
 	}
 	
 	public Color viewFillColor(){

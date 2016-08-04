@@ -14,8 +14,8 @@
 package project4;
 
 public class Params {
-	public final static int world_width = 60;
-	public final static int world_height = 61;
+	public final static int world_width = 10;
+	public final static int world_height = 11;
 	public final static int walk_energy_cost = 2;
 	public final static int run_energy_cost = 5;
 	public final static int rest_energy_cost = 0;

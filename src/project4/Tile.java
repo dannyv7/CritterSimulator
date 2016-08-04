@@ -40,7 +40,15 @@ public class Tile extends StackPane {
 		shape.setStroke(outline);
 		getChildren().addAll(border, shape);
 	}
-
+	public Tile(Critter c) {
+		Rectangle border = new Rectangle(dim, dim);
+		border.setFill(null);
+		border.setStroke(Color.BLACK);
+		Shape shape = c.viewShape();
+		shape.setFill(c.viewFillColor());
+		shape.setStroke(c.viewOutlineColor());
+		getChildren().addAll(border, shape);
+	}
 	public Tile(int i) {
 		Rectangle border = new Rectangle(dim, dim);
 		border.setFill(null);

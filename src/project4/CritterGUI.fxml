@@ -16,5 +16,6 @@
       <Button fx:id="statsButton" layoutX="77.0" layoutY="512.0" mnemonicParsing="false" onAction="#displayStats" text="Display Statistics" />
       <Button fx:id="endButton" layoutX="83.0" layoutY="586.0" mnemonicParsing="false" onAction="#endSimulation" text="Exit Simulation" />
       <TextField fx:id="numCritters" layoutX="49.0" layoutY="102.0" promptText="Number of Critters to make" />
+      <TextArea layoutX="2.0" layoutY="630.0" prefHeight="330.0" prefWidth="270.0" />
    </children>
 </AnchorPane>

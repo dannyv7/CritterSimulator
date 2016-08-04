@@ -607,14 +607,14 @@ public abstract class Critter {
 	 * Prints the border and the critter
 	 */
 	public Shape viewShape(){
-		return new Rectangle(3,3);
+		return null;
 	}
 	
 	public Color viewFillColor(){
-		return Color.BLACK;
+		return null;
 	}
 	public Color viewOutlineColor(){
-		return Color.BLUE;
+		return null;
 	}
 	public static void displayWorld() {
 		Tile[][] world = Main.getRealWorld();
@@ -641,12 +641,12 @@ public abstract class Critter {
 			System.out.println("|");
 		}
 		
-		for(int i = 0; i < Params.world_height; i++){
-			for(int k = 0; k < Params.world_width; k++){
-				if(CritterWorld.getWorld()[k][i] == null){
+		for(int i = 0; i < Params.world_width; i++){
+			for(int k = 0; k < Params.world_height; k++){
+				if(CritterWorld.getWorld()[i][k] == null){
 					world[i][k] = new Tile();
 				}else{
-					world[i][k] = new Tile(CritterWorld.getWorld()[k][i].viewFillColor(),CritterWorld.getWorld()[k][i].viewShape(), CritterWorld.getWorld()[k][i].viewOutlineColor());
+					world[i][k] = new Tile(CritterWorld.getWorld()[i][k]);
 				}
 			}
 		}

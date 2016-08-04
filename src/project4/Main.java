@@ -102,9 +102,10 @@ public class Main extends Application {
 
 	public static void test(){
 		gp = new GridPane();
+		Tile[][] temp = realWorld;
 		for (int i = 0; i < Params.world_width; i += 1) {
 			for (int k = 0; k < Params.world_height; k += 1) {
-				gp.add(new Tile(Color.AQUA, new Circle(2), Color.RED), i, k);
+				gp.add(realWorld[i][k],i,k);
 			}
 		}
 		Scene scene = new Scene(gp);
