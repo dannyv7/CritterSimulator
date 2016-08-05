@@ -17,11 +17,13 @@ import java.awt.Insets;
 import java.io.IOException;
 import java.util.Scanner;
 
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.ColumnConstraints;
@@ -33,17 +35,22 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class Main extends Application {
 	private static Tile[][] realWorld= new Tile[Params.world_width][Params.world_height];
 	private static GridPane gp = null;
+	private static Text t = null;
 	private static Stage world = new Stage();
+	private static Stage stats = new Stage();
+	private static int timeSteps = 0;
 	public static void main(String[] args)  throws InvalidCritterException {
 		launch(args);
-		test();
 	}
-
+	public static void setTime(int t){
+		timeSteps = t;
+	}
 	public static Tile[][] getRealWorld(){
 		return realWorld;
 	}
@@ -63,6 +70,7 @@ public class Main extends Application {
 		world.setTitle("CritterSimulator");
 		world.setScene(scene2);
 		world.show();
+		
 	}
 	
 	public GridPane actualizeWorld(){
@@ -100,7 +108,7 @@ public class Main extends Application {
 		return gpane;
 	}
 
-	public static void test(){
+	public static void show(){
 		gp = new GridPane();
 		Tile[][] temp = realWorld;
 		for (int i = 0; i < Params.world_width; i += 1) {
@@ -111,5 +119,27 @@ public class Main extends Application {
 		Scene scene = new Scene(gp);
 		world.setScene(scene);
 		world.show();
+		 
+	    }
+	
+	public static void showStats(String s){
+		 Group root = new Group();
+	        Scene scene = new Scene(root, 300, 250, Color.WHITE);
+	        int x = 10;
+	        int y = 10;
+	        int red = 30;
+	        int green = 40;
+	        int blue = 50;
+
+	        Text text = new Text(x, y, s);
+
+	        text.setFill(Color.rgb(red, green, blue, .99));
+	       // text.setRotate(60);
+	        root.getChildren().add(text);
+	        
+	        stats.setTitle("CritterStats");
+	        stats.setScene(scene);
+	        stats.show();
 	}
 }
+

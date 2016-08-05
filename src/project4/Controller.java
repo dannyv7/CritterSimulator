@@ -2,7 +2,9 @@ package project4;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.TimeUnit;
 
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.css.PseudoClass;
 import javafx.event.ActionEvent;
@@ -32,7 +34,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class Controller  implements Initializable{
-
+	
 	//private TilePane tpain;
 	
 	@FXML
@@ -102,7 +104,7 @@ public class Controller  implements Initializable{
 	}
 	
 	public void executeTimeSteps(ActionEvent event){
-		int numTimeStepsToTake;
+		int  numTimeStepsToTake;
 		try{
 			numTimeStepsToTake = Integer.parseInt(numSteps.getText());
 		}catch(NumberFormatException o){
@@ -112,7 +114,15 @@ public class Controller  implements Initializable{
 		
 		for(int i = 0; i < numTimeStepsToTake; i+= 1){
 			Critter.worldTimeStep();
+			showButton.fire();
+			try {
+				 TimeUnit.MILLISECONDS.sleep(500);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
+
 	}
 	
 	public void setSeed(ActionEvent event){
@@ -123,13 +133,15 @@ public class Controller  implements Initializable{
 	public void displayWorld(ActionEvent event){
 		Critter.displayWorld();
 		//Critter[][] temp= CritterWorld.getWorld();
-		Main.test();
+		Main.show();
 		
 	}
 	
 	public void displayStats(ActionEvent event){
 		//Critter.runStats(CritterWorld.getLiveCritters());
-		statd.setText("Hello");
+		Stage stage = new Stage();
+		Main.showStats(Critter.runStats(CritterWorld.getLiveCritters()));
+		
 	}
 	
 	public void endSimulation(ActionEvent event){
