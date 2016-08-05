@@ -17,6 +17,10 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
+
 /* see the PDF for descriptions of the methods and fields in this class
  * you may add fields, methods or inner classes to Critter ONLY if you make your additions private
  * no new public, protected or default-package code or data can be added to Critter
@@ -602,7 +606,18 @@ public abstract class Critter {
 	/**
 	 * Prints the border and the critter
 	 */
+	public Shape viewShape(){
+		return new Rectangle(3,3);
+	}
+	
+	public Color viewFillColor(){
+		return Color.BLACK;
+	}
+	public Color viewOutlineColor(){
+		return Color.BLUE;
+	}
 	public static void displayWorld() {
+		Tile[][] world = Main.getRealWorld();
 		placeCrittersPacifist();
 		/* Creates the top border */
 		System.out.print("|");
@@ -624,6 +639,16 @@ public abstract class Critter {
 			}
 			
 			System.out.println("|");
+		}
+		
+		for(int i = 0; i < Params.world_height; i++){
+			for(int k = 0; k < Params.world_width; k++){
+				if(CritterWorld.getWorld()[k][i] == null){
+					world[i][k] = new Tile();
+				}else{
+					world[i][k] = new Tile(CritterWorld.getWorld()[k][i].viewFillColor(),CritterWorld.getWorld()[k][i].viewShape(), CritterWorld.getWorld()[k][i].viewOutlineColor());
+				}
+			}
 		}
 		
 		/* Creates the bottom border */

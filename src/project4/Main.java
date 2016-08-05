@@ -44,6 +44,9 @@ public class Main extends Application {
 		test();
 	}
 
+	public static Tile[][] getRealWorld(){
+		return realWorld;
+	}
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// TODO Auto-generated method stub
@@ -101,12 +104,10 @@ public class Main extends Application {
 		gp = new GridPane();
 		for (int i = 0; i < Params.world_width; i += 1) {
 			for (int k = 0; k < Params.world_height; k += 1) {
-				realWorld[i][k] = new Tile(new Circle());
-				gp.add(realWorld[i][k], i, k);
+				gp.add(new Tile(Color.AQUA, new Circle(2), Color.RED), i, k);
 			}
 		}
 		Scene scene = new Scene(gp);
-		world.close();
 		world.setScene(scene);
 		world.show();
 	}

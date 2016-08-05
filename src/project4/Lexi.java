@@ -13,6 +13,10 @@
 
 package project4;
 
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Shape;
+
 /**
  * A sedentary Critter
  * Prefers to stay still and rarely walks
@@ -30,8 +34,8 @@ public class Lexi extends Critter{
 		return("L");
 	}
 	
-	public CritterShape viewShape(){
-		return CritterShape.TRIANGLE;
+	public Shape viewShape(){
+		return new Polygon(8);
 	}
 	
 	public Color viewFillColor(){

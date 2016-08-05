@@ -116,9 +116,9 @@ public class Controller  implements Initializable{
 	}
 
 	public void displayWorld(ActionEvent event){
-		Critter.displayWorld();
+		//Critter.displayWorld();
 		Critter[][] temp= CritterWorld.getWorld();
-		
+		Main.test();
 		
 	}
 	

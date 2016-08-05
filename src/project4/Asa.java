@@ -13,6 +13,10 @@
 
 package project4;
 
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Shape;
+
 /**
  * A balanced behaviored Critter
  * Has no preference between walking/running/resting
@@ -30,8 +34,8 @@ public class Asa extends Critter{
 	}
 
 	
-	public CritterShape viewShape(){
-		return CritterShape.CIRCLE;
+	public Shape viewShape(){
+		return new Circle();
 	}
 	
 	public Color viewFillColor(){

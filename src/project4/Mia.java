@@ -12,6 +12,11 @@
  */
 
 package project4;
+
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Shape;
+
 /**
  * A very balanced behavior Critter
  * Usually walks, rarely running or resting
@@ -31,8 +36,8 @@ public class Mia extends Critter{
 	public String toString(){
 		return("M");
 	}
-	public CritterShape viewShape(){
-		return CritterShape.RECTANGLE;
+	public Shape viewShape(){
+		return new Polygon(5);
 	}
 	
 	public Color viewFillColor(){

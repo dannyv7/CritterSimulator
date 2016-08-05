@@ -12,6 +12,11 @@
  */
 
 package project4;
+
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Shape;
+
 /**
  * An active Critter
  * Prefers to run, occassionally walks, and rarely rests
@@ -27,8 +32,8 @@ public class Kennedy extends Critter{
 	public String toString(){
 		return("K");
 	}
-	public CritterShape viewShape(){
-		return CritterShape.DIAMOND;
+	public Shape viewShape(){
+		return new Polygon(6);
 	}
 	
 	public Color viewFillColor(){

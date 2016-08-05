@@ -13,6 +13,11 @@
 
 package project4;
 
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
+
 public class Craig extends Critter {
 	
 	@Override
@@ -32,8 +37,8 @@ public class Craig extends Critter {
 	public boolean fight(String not_used) { return true; }
 
 	
-	public CritterShape viewShape(){
-		return CritterShape.SQUARE;
+	public Shape viewShape(){
+		return new Rectangle(3,3);
 	}
 	
 	public Color viewFillColor(){
