@@ -111,7 +111,7 @@ public class Controller  implements Initializable{
 			numTimeStepsToTake = 1;
 		}
 		
-		
+		/* Doesn't fucking animate, comment this block and uncomment following block to animate */
 		for(int i = 0; i < numTimeStepsToTake; i+= 1){
 			Critter.worldTimeStep();
 			showButton.fire();
@@ -122,6 +122,21 @@ public class Controller  implements Initializable{
 				e.printStackTrace();
 			}
 		}
+		/* Animates without stoping, doesn't matter if you change for  loop constraints */
+//		 new AnimationTimer() {
+//	            @Override public void handle(long currentNanoTime) {
+//	                for (int i = 0; i < 50; i++) {
+//	                	Critter.worldTimeStep();
+//	                    showButton.fire();
+//	                }
+//
+//	                try {
+//	                    Thread.sleep(100);
+//	                } catch (InterruptedException e) {
+//	                    // Do nothing
+//	                }
+//	            }
+//	        }.start();
 
 	}
 	
