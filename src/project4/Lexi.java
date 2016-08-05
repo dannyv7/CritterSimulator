@@ -15,6 +15,7 @@ package project4;
 
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 
 /**
@@ -35,7 +36,7 @@ public class Lexi extends Critter{
 	}
 	
 	public Shape viewShape(){
-		return new Polygon(8);
+		return new Rectangle(5,5);
 	}
 	
 	public Color viewFillColor(){

@@ -15,6 +15,7 @@ package project4;
 
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 
 /**
@@ -33,7 +34,7 @@ public class Kennedy extends Critter{
 		return("K");
 	}
 	public Shape viewShape(){
-		return new Polygon(6);
+		return new Rectangle(5,5);
 	}
 	
 	public Color viewFillColor(){
@@ -41,7 +42,7 @@ public class Kennedy extends Critter{
 	}
 	
 	public Color viewOutlineColor(){
-		return Color.PINK;
+		return Color.DARKOLIVEGREEN;
 	}
 	@Override
 	public void doTimeStep() {

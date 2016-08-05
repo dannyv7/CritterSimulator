@@ -17,6 +17,8 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import javafx.scene.Scene;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
@@ -660,6 +662,19 @@ public abstract class Critter {
 			System.out.print("-");
 		}
 		System.out.println("|");
+		
+		Main.setGp(new GridPane());
+		Tile[][] temp = Main.getTileWorld();
+		for (int i = 0; i < Params.world_width; i += 1) {
+			for (int k = 0; k < Params.world_height; k += 1) {
+				Main.getGp().add(Main.getTileWorld()[i][k],i,k);
+			}
+		}
+		Scene scene = new Scene(Main.getGp());
+		Main.getCancer().setScene(scene);
+		Main.getCancer().show();
 
 	}
+	
+	
 }

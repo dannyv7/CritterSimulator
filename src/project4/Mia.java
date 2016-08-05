@@ -15,6 +15,7 @@ package project4;
 
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 
 /**
@@ -37,7 +38,7 @@ public class Mia extends Critter{
 		return("M");
 	}
 	public Shape viewShape(){
-		return new Polygon(5);
+		return new Rectangle(5,5);
 	}
 	
 	public Color viewFillColor(){

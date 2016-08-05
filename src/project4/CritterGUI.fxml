@@ -15,9 +15,10 @@
       <Button fx:id="seedButton" layoutX="112.0" layoutY="367.0" mnemonicParsing="false" text="Seed" />
       <Button fx:id="showButton" layoutX="85.0" layoutY="441.0" mnemonicParsing="false" onAction="#displayWorld" text="Display World" />
       <Button fx:id="statsButton" layoutX="77.0" layoutY="512.0" mnemonicParsing="false" onAction="#displayStats" text="Display Statistics" />
-      <Button fx:id="endButton" layoutX="83.0" layoutY="586.0" mnemonicParsing="false" onAction="#endSimulation" text="Exit Simulation" />
+      <Button fx:id="endButton" layoutX="83.0" layoutY="821.0" mnemonicParsing="false" onAction="#endSimulation" text="Exit Simulation" />
       <TextField fx:id="numCritters" layoutX="49.0" layoutY="102.0" promptText="Number of Critters to make" />
-      <Slider layoutX="65.0" layoutY="667.0" />
-      <Text fx:id="statd" layoutX="11.0" layoutY="783.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="249.111328125" />
+      <Button fx:id="startAni" layoutX="82.0" layoutY="640.0" mnemonicParsing="false" onAction="#startAnimation" text="Start Animation" />
+      <TextField fx:id="numAni" layoutX="49.0" layoutY="668.0" promptText="Enter desired animation tps" />
+      <Button fx:id="stopAni" layoutX="82.0" layoutY="696.0" mnemonicParsing="false" onAction="#stopAnimation" text="Stop Animation" />
    </children>
 </AnchorPane>

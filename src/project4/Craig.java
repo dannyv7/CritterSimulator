@@ -38,7 +38,7 @@ public class Craig extends Critter {
 
 	
 	public Shape viewShape(){
-		return new Rectangle(3,3);
+		return new Circle(3);
 	}
 	
 	public Color viewFillColor(){

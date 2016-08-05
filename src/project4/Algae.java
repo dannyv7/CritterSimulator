@@ -21,7 +21,7 @@ import project4.Critter.TestCritter;
 
 public class Algae extends TestCritter {
 	public Shape viewShape(){
-		return new Circle(2);
+		return new Circle(3);
 	}
 	
 	public Color viewFillColor(){

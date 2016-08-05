@@ -34,7 +34,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class Controller  implements Initializable{
-	
+	private static boolean run = false;
+	private static int speed = 0;
 	//private TilePane tpain;
 	
 	@FXML
@@ -69,6 +70,16 @@ public class Controller  implements Initializable{
 	
 	@FXML
 	private Text statd;
+	
+	@FXML
+	private Button startAni;
+	
+	@FXML
+	private Button stopAni;
+	
+	@FXML
+	private TextField numAni;
+	
 	
 	public void setGrid(){
 	}
@@ -114,30 +125,7 @@ public class Controller  implements Initializable{
 		/* Doesn't fucking animate, comment this block and uncomment following block to animate */
 		for(int i = 0; i < numTimeStepsToTake; i+= 1){
 			Critter.worldTimeStep();
-			showButton.fire();
-			try {
-				 TimeUnit.MILLISECONDS.sleep(500);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 		}
-		/* Animates without stoping, doesn't matter if you change for  loop constraints */
-//		 new AnimationTimer() {
-//	            @Override public void handle(long currentNanoTime) {
-//	                for (int i = 0; i < 50; i++) {
-//	                	Critter.worldTimeStep();
-//	                    showButton.fire();
-//	                }
-//
-//	                try {
-//	                    Thread.sleep(100);
-//	                } catch (InterruptedException e) {
-//	                    // Do nothing
-//	                }
-//	            }
-//	        }.start();
-
 	}
 	
 	public void setSeed(ActionEvent event){
@@ -148,7 +136,6 @@ public class Controller  implements Initializable{
 	public void displayWorld(ActionEvent event){
 		Critter.displayWorld();
 		//Critter[][] temp= CritterWorld.getWorld();
-		Main.show();
 		
 	}
 	
@@ -172,6 +159,29 @@ public class Controller  implements Initializable{
 			Circle circle = new Circle(2);
 			setAlignment(Pos.CENTER);
 			getChildren().addAll(border, circle);
+		}
+	}
+	
+	public void startAnimation(ActionEvent event){
+		run = true;
+		try{
+			speed = Integer.parseInt(numAni.getText());
+		}catch(NumberFormatException o){
+			speed = 1;
+		}
+		
+		
+	}
+	
+	public void stopAnimation(ActionEvent event){
+		run = false;
+	}
+	public static void animate() {
+		if ( run ) {
+			// do timesteps 
+			for (int i = 0; i < speed; i+=1)
+				Critter.worldTimeStep();
+				Critter.displayWorld();
 		}
 	}
 	

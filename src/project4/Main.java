@@ -71,6 +71,16 @@ public class Main extends Application {
 		world.setScene(scene2);
 		world.show();
 		
+		new AnimationTimer() {
+			private long lastUpdate = 0;
+            @Override public void handle(long currentNanoTime) {
+            	if (true) {	// Running at 1 FPS
+            		Controller.animate();
+            		lastUpdate = currentNanoTime;
+            	}
+            }
+        }.start();
+		 
 	}
 	
 	public GridPane actualizeWorld(){
@@ -120,7 +130,7 @@ public class Main extends Application {
 		world.setScene(scene);
 		world.show();
 		 
-	    }
+	   }
 	
 	public static void showStats(String s){
 		 Group root = new Group();
@@ -140,6 +150,22 @@ public class Main extends Application {
 	        stats.setTitle("CritterStats");
 	        stats.setScene(scene);
 	        stats.show();
+	}
+	
+	public static GridPane getGp(){
+		return gp;
+	}
+	
+	public static Tile[][] getTileWorld(){
+		return realWorld;
+	}
+	
+	public static Stage getCancer(){
+		return world;
+	}
+	
+	public static  void setGp(GridPane g){
+		gp = g;
 	}
 }
 
